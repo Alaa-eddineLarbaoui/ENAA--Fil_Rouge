@@ -1,24 +1,20 @@
 package com.example.ENAA__Fil_Rouge.models;
 
-
 import jakarta.persistence.*;
 import lombok.*;
-
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 public class HealthProfessional extends Person {
-    @Id
     @Column
-    private String clinicAddress ;
+    private String clinicAddress;
 
     @Column
-    private String specialty ;
+    private String specialty;
 
     @Column
     private String registrationNumber;
-
-
 }
