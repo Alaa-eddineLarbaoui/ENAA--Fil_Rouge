@@ -2,9 +2,11 @@ package com.example.ENAA__Fil_Rouge.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import lombok.*;
 
 import java.util.Date;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -12,9 +14,6 @@ import java.util.Date;
 @NoArgsConstructor
 @Entity
 public class Patient extends Person {
-    @Column(length = 50, unique = true, nullable = false)
-    private String email;
-
     @Column
     private String address;
 
@@ -23,4 +22,7 @@ public class Patient extends Person {
 
     @Column
     private String gender;
+
+    @OneToMany(mappedBy = "patient")
+    private Set<Notification> notifications;
 }

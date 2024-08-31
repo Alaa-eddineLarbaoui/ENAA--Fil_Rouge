@@ -15,7 +15,7 @@ public abstract class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 50, unique = true, nullable = false)
     private String username;
 
     @Column(length = 50, unique = true, nullable = false)
@@ -25,6 +25,6 @@ public abstract class Person {
     @Column(length = 100, nullable = false)
     private String password;
 
-    @Column(length = 15, nullable = false)
+    @Column(length = 15, unique = true, nullable = false)
     private String phoneNumber;
 }
