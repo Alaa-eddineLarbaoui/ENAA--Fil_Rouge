@@ -29,7 +29,8 @@ import java.util.Date;
         @Column(length = 20)
         private AppointmentStatus status;
 
-        @Column
+        @Enumerated(EnumType.STRING)
+        @Column(length = 20)
         private AppointmentReason appointmentReason;
 
         @Column

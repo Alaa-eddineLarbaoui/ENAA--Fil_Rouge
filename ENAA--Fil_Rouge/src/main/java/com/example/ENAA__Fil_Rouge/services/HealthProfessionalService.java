@@ -25,15 +25,15 @@ public class HealthProfessionalService {
         return healthProfessionalRepository.findById(id)
                 .orElseThrow();
     }
-    public HealthProfessional updateHealthProfessional(Long id, HealthProfessional updatedHealthProfessional) {
+    public HealthProfessional updateHealthProfessional(Long id, HealthProfessional updateProf) {
         HealthProfessional healthProfessional = showHealthProfessionalById(id);
-        healthProfessional.setUsername(updatedHealthProfessional.getUsername());
-        healthProfessional.setEmail(updatedHealthProfessional.getEmail());
-        healthProfessional.setPassword(updatedHealthProfessional.getPassword());
-        healthProfessional.setPhoneNumber(updatedHealthProfessional.getPhoneNumber());
-        healthProfessional.setClinicAddress(updatedHealthProfessional.getClinicAddress());
-        healthProfessional.setSpecialty(updatedHealthProfessional.getSpecialty());
-        healthProfessional.setRegistrationNumber(updatedHealthProfessional.getRegistrationNumber());
+        healthProfessional.setUsername(updateProf.getUsername());
+        healthProfessional.setEmail(updateProf.getEmail());
+        healthProfessional.setPassword(updateProf.getPassword());
+        healthProfessional.setPhoneNumber(updateProf.getPhoneNumber());
+        healthProfessional.setClinicAddress(updateProf.getClinicAddress());
+        healthProfessional.setSpecialty(updateProf.getSpecialty());
+        healthProfessional.setRegistrationNumber(updateProf.getRegistrationNumber());
         return healthProfessionalRepository.save(healthProfessional);
     }
 
