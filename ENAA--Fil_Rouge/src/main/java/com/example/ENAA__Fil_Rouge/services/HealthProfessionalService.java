@@ -11,22 +11,45 @@ import java.util.List;
 public class HealthProfessionalService {
 
     @Autowired
-    private HealthProfessionalRepository healthProfessionalRepository;
+    private HealthProfessionalRepository healthProfessionalRepository;  // Dependency injection for the HealthProfessional repository
 
+    /**
+     * Registers a new health professional in the database.
+     * @param healthProfessional The health professional to register.
+     * @return The saved health professional.
+     */
     public HealthProfessional registerHealthProfessional(HealthProfessional healthProfessional) {
         return healthProfessionalRepository.save(healthProfessional);
     }
 
+    /**
+     * Retrieves all health professionals from the database.
+     * @return A list of all health professionals.
+     */
     public List<HealthProfessional> getAllHealthProfessionals() {
         return healthProfessionalRepository.findAll();
     }
 
+    /**
+     * Retrieves a specific health professional using their ID.
+     * @param id The ID of the health professional to retrieve.
+     * @return The health professional corresponding to the provided ID.
+     */
     public HealthProfessional showHealthProfessionalById(Long id) {
         return healthProfessionalRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow();  // Throws an exception if the health professional is not found
     }
+
+    /**
+     * Updates an existing health professional with new information.
+     * @param id The ID of the health professional to update.
+     * @param updateProf The health professional containing the updated information.
+     * @return The updated health professional.
+     */
     public HealthProfessional updateHealthProfessional(Long id, HealthProfessional updateProf) {
-        HealthProfessional healthProfessional = showHealthProfessionalById(id);
+        HealthProfessional healthProfessional = showHealthProfessionalById(id);  // Retrieves the health professional by ID
+
+        // Update the fields of the existing health professional
         healthProfessional.setUsername(updateProf.getUsername());
         healthProfessional.setEmail(updateProf.getEmail());
         healthProfessional.setPassword(updateProf.getPassword());
@@ -34,9 +57,14 @@ public class HealthProfessionalService {
         healthProfessional.setClinicAddress(updateProf.getClinicAddress());
         healthProfessional.setSpecialty(updateProf.getSpecialty());
         healthProfessional.setRegistrationNumber(updateProf.getRegistrationNumber());
-        return healthProfessionalRepository.save(healthProfessional);
+
+        return healthProfessionalRepository.save(healthProfessional);  // Save the changes to the database
     }
 
+    /**
+     * Deletes a health professional from the database using their ID.
+     * @param id The ID of the health professional to delete.
+     */
     public void deleteHealthProfessional(Long id) {
         healthProfessionalRepository.deleteById(id);
     }
