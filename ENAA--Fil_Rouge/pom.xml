@@ -76,13 +76,13 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Dependency to add security with Spring Security -->
+		<!-- Dependency to add security with Spring Security
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 			<version>3.3.0</version>
 		</dependency>
-
+-->
 		<!-- Dependency to use JWT (JSON Web Token) for authentication and authorization -->
 		<!-- Main API for JJWT -->
 		<dependency>
@@ -136,6 +136,14 @@
 			<artifactId>springfox-boot-starter</artifactId>
 			<version>3.0.0</version>
 		</dependency>
+
+
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
 
 	</dependencies>
 

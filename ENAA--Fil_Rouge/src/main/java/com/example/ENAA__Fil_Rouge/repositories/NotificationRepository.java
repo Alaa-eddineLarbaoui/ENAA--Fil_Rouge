@@ -7,5 +7,5 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface NotificationRepository extends JpaRepository<Notification, Long> {
-    List<Notification> findByDateEnvoiBeforeAndEstEnvoyeeFalse(LocalDateTime dateEnvoi);
+    List<Notification> findByDateSendBeforeAndIsSentFalse(LocalDateTime dateSend);
 }

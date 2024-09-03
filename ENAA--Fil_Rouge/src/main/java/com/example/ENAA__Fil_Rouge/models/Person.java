@@ -18,10 +18,9 @@ public abstract class Person {
     @Column(length = 50, unique = true, nullable = false)
     private String username;
 
-    @Column(length = 50, unique = true, nullable = false)
+    @Column(length = 50, nullable = false)
     private String email;
 
-    @JsonIgnore
     @Column(length = 100, nullable = false)
     private String password;
 

@@ -23,6 +23,6 @@ public class HealthProfessional extends Person {
     private String registrationNumber;
 
     // Relationship with Notification
-    @OneToMany(mappedBy = "healthProfessional")
-    private List<Notification> notifications;
+//    @OneToMany(mappedBy = "healthProfessional")
+//    private List<Notification> notifications;
 }
