@@ -22,6 +22,7 @@ public class PatientService {
         return patientRepository.save(patient);
     }
 
+
     /**
      * Récupère tous les patients depuis la base de données.
      * @return Une liste de tous les patients.
@@ -29,6 +30,7 @@ public class PatientService {
     public List<Patient> getAllPatients() {
         return patientRepository.findAll();
     }
+
 
     /**
      * Récupère un patient spécifique en utilisant son identifiant.
@@ -39,6 +41,7 @@ public class PatientService {
         return patientRepository.findById(id)
                 .orElseThrow();  // Lève une exception si le patient n'est pas trouvé
     }
+
 
     /**
      * Met à jour un patient existant avec de nouvelles informations.
@@ -60,6 +63,7 @@ public class PatientService {
 
         return patientRepository.save(patient);  // Sauvegarde les modifications dans la base de données
     }
+
 
     /**
      * Supprime un patient de la base de données en utilisant son identifiant.

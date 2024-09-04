@@ -2,7 +2,6 @@ package com.example.ENAA__Fil_Rouge.services;
 
 import com.example.ENAA__Fil_Rouge.models.Appointment;
 import com.example.ENAA__Fil_Rouge.repositories.AppointmentRepository;
-import com.example.ENAA__Fil_Rouge.repositories.NotificationRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -18,14 +17,10 @@ import java.util.List;
 public class NotificationService {
 
     @Autowired
-    private NotificationRepository notificationRepository;
-
-    @Autowired
     private JavaMailSender mailSender;
 
     @Autowired
     private AppointmentRepository appointmentRepository;
-
 
     @Scheduled(fixedRate = 3600000)
     public void envoyerNotifications() {
@@ -63,4 +58,6 @@ public class NotificationService {
 
         mailSender.send(mailMessage);
     }
+
 }
+

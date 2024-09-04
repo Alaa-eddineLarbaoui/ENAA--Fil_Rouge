@@ -19,7 +19,7 @@ public class Appointment {
     private Long id;
 
     @Column(nullable = false)
-    private LocalDateTime dateTime; // Fusion des champs date et time en un seul
+    private LocalDateTime dateTime;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20)

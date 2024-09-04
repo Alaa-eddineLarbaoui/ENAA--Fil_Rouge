@@ -1,6 +1,7 @@
 package com.example.ENAA__Fil_Rouge.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -28,9 +29,11 @@ public class Notification {
 
     @ManyToOne
     @JoinColumn(name = "patient_id")
+    @JsonIgnore
     private Patient patient;
 
     @ManyToOne
     @JoinColumn(name = "healthProfessionel_id")
+    @JsonIgnore
     private HealthProfessional healthProfessional;
 }
