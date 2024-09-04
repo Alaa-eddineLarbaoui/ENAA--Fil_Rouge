@@ -22,6 +22,11 @@ public class HealthProfessional extends Person {
     @Column
     private String registrationNumber;
 
+    @Column
+    private double  latitude;
+
+    @Column
+    private double  longitude;
     // Relationship with Notification
 //    @OneToMany(mappedBy = "healthProfessional")
 //    private List<Notification> notifications;

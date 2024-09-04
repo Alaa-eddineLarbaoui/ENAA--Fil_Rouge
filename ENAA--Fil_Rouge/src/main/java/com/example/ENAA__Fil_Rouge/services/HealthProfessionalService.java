@@ -37,7 +37,7 @@ public class HealthProfessionalService {
      */
     public HealthProfessional showHealthProfessionalById(Long id) {
         return healthProfessionalRepository.findById(id)
-                .orElseThrow();  // Throws an exception if the health professional is not found
+                .orElseThrow();
     }
 
     /**
