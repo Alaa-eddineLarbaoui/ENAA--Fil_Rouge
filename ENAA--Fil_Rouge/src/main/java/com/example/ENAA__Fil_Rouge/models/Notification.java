@@ -20,6 +20,7 @@ public class Notification {
     @Column
     private String message;
 
+
     @Column
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime dateSend;

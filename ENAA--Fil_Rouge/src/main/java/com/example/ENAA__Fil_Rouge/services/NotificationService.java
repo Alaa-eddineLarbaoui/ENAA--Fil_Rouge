@@ -22,23 +22,24 @@ public class NotificationService {
     @Autowired
     private AppointmentRepository appointmentRepository;
 
-    @Scheduled(fixedRate = 3600000)
+
+    @Scheduled(fixedDelay = 10000)
     public void envoyerNotifications() {
         LocalDateTime maintenant = LocalDateTime.now();
 
-        LocalDateTime dans24Heures = maintenant.plusHours(24);
+        LocalDateTime dans48Heures = maintenant.plusHours(48);
 
-        List<Appointment> appointments = appointmentRepository
-                .findByDateTimeBeforeAndNotificationEnvoyeeFalse(dans24Heures);
+//        List<Appointment> appointments = appointmentRepository
+//                .findByDateTimeBeforeAndNotificationEnvoyeeFalse(dans48Heures);
 
 
-        for (Appointment appointment : appointments) {
-            String nomPatient = appointment.getPatient().getUsername();
-            String nomProfessional = appointment.getProfessional().getUsername();
-            envoyerEmail(appointment.getPatient().getEmail(), nomPatient, appointment.getDateTime(), nomProfessional);
-            appointment.setNotificationEnvoyee(true);
-            appointmentRepository.save(appointment);
-        }
+//        for (Appointment appointment : appointments) {
+//            String nomPatient = appointment.getPatient().getUsername();
+//            String nomProfessional = appointment.getProfessional().getUsername();
+////            envoyerEmail(appointment.getPatient().getEmail(), nomPatient, appointment.getTime(), nomProfessional);
+//            appointment.setNotificationEnvoyee(true);
+//            appointmentRepository.save(appointment);
+//        }
     }
 
 

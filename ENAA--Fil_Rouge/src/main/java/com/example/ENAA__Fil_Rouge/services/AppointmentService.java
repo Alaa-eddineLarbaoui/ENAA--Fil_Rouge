@@ -1,12 +1,17 @@
 package com.example.ENAA__Fil_Rouge.services;
 
 
+import com.example.ENAA__Fil_Rouge.enums.AppointmentStatus;
 import com.example.ENAA__Fil_Rouge.models.Appointment;
 import com.example.ENAA__Fil_Rouge.repositories.AppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AppointmentService {
@@ -58,7 +63,9 @@ public class AppointmentService {
         Appointment appointment1 = getAppointment(id);  // Retrieves the appointment by ID
 
         // Update the fields of the existing appointment
-        appointment1.setDateTime(appointment.getDateTime()); // Utilisez setDateTime() si vous avez fusionné date et time
+        appointment1.setTime(appointment.getTime()); // Utilisez setDateTime() si vous avez fusionné date et time
+        appointment1.setDate(appointment.getDate()); // Utilisez setDateTime() si vous avez fusionné date et time
+
         appointment1.setStatus(appointment.getStatus());
         appointment1.setAppointmentReason(appointment.getAppointmentReason());
         appointment1.setNote(appointment.getNote());
@@ -66,5 +73,40 @@ public class AppointmentService {
         return appointRepository.save(appointment1);  // Save the changes to the database
     }
 
+
+
+    private final List<LocalTime> defaultHours = Arrays.asList(
+            LocalTime.of(9, 0),
+            LocalTime.of(11, 0),
+            LocalTime.of(12, 0),
+            LocalTime.of(14, 0),
+            LocalTime.of(15, 0),
+            LocalTime.of(16, 0),
+            LocalTime.of(17, 0),
+            LocalTime.of(18, 0)
+    );
+
+    public List<LocalTime> getAvailableTimes(LocalDate date) {
+        List<Appointment> reservedAppointments = appointRepository.findByDateAndTimeIn(date, defaultHours);
+        List<LocalTime> reservedTimes = reservedAppointments.stream()
+                .map(Appointment::getTime)
+                .collect(Collectors.toList());
+
+
+        return defaultHours.stream()
+                .filter(time -> !reservedTimes.contains(time))
+                .collect(Collectors.toList());
+    }
+
+
+
+    public void reserveAppointment(LocalDate date, LocalTime time, Long patientId) {
+        Appointment appointment = new Appointment();
+        appointment.setDate(date);
+        appointment.setTime(time);
+        appointment.setStatus(AppointmentStatus.RESERVED);
+        // Attribuez un patient, vous pouvez récupérer l'instance depuis le repo de patient
+        appointRepository.save(appointment);
+    }
 
 }
