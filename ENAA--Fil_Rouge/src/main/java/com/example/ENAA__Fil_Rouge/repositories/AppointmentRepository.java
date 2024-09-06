@@ -2,14 +2,20 @@ package com.example.ENAA__Fil_Rouge.repositories;
 
 import com.example.ENAA__Fil_Rouge.models.Appointment;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
-//    List<Appointment> findByDateTimeBeforeAndNotificationEnvoyeeFalse(LocalDateTime dateTime);
+    //List<Appointment> findByDateAndTimeBeforeAndNotificationEnvoyeeFalse(LocalDate date, LocalTime time);
     List<Appointment> findByDateAndTimeIn(LocalDate date, List<LocalTime> times);
+
+
+    @Query(value = "SELECT * FROM appointment a WHERE a.date < :dans48heurs AND a.date > :maintenant AND a.notification_envoyee = false", nativeQuery = true)
+    List<Appointment> findByDateAndTimeBeforeAndNotificationEnvoyeeFalse(@Param("dans48heurs") LocalDate date1, @Param("maintenant") LocalDate date2);
 
 }

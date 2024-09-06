@@ -9,8 +9,12 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 @AllArgsConstructor
@@ -26,39 +30,61 @@ public class NotificationService {
     @Scheduled(fixedDelay = 10000)
     public void envoyerNotifications() {
         LocalDateTime maintenant = LocalDateTime.now();
-
         LocalDateTime dans48Heures = maintenant.plusHours(48);
 
-//        List<Appointment> appointments = appointmentRepository
-//                .findByDateTimeBeforeAndNotificationEnvoyeeFalse(dans48Heures);
+        // Extraction de la date et de l'heure
+        LocalDate date2 = maintenant.toLocalDate();
+        LocalDate date1 = dans48Heures.toLocalDate();
+
+        // Rechercher les rendez-vous dans les 48 prochaines heures et dont les notifications n'ont pas encore été envoyées
+        System.out.println("////////" + dans48Heures);
+
+        List<Appointment> appointments = appointmentRepository
+                .findByDateAndTimeBeforeAndNotificationEnvoyeeFalse(date1, date2);
+        System.out.println(appointments.size());
 
 
-//        for (Appointment appointment : appointments) {
-//            String nomPatient = appointment.getPatient().getUsername();
-//            String nomProfessional = appointment.getProfessional().getUsername();
-////            envoyerEmail(appointment.getPatient().getEmail(), nomPatient, appointment.getTime(), nomProfessional);
-//            appointment.setNotificationEnvoyee(true);
-//            appointmentRepository.save(appointment);
-//        }
+        for (Appointment appointment : appointments) {
+            String nomPatient = appointment.getPatient().getUsername();
+            String nomProfessional = appointment.getProfessional().getUsername();
+            envoyerEmail(appointment.getPatient().getEmail(), nomPatient, appointment.getTime(),appointment.getDate(), nomProfessional);
+            appointment.setNotificationEnvoyee(true);
+            appointmentRepository.save(appointment);
+        }
     }
 
 
-    private void envoyerEmail(String emailPatient, String nomPatient, LocalDateTime dateTime, String nomProfessional) {
-        String message = "Bonjour " + nomPatient + ",\n\n" +
-                "Ceci est un rappel pour votre rendez-vous prévu le " + dateTime + ".\n" +
-                "Votre rendez-vous est avec le Dr. " + nomProfessional + ".\n\n" +
-                "Merci de votre attention.";
+    private void envoyerEmail(String emailPatient, String nomPatient, LocalTime time, LocalDate date, String nomProfessional) {
+        // Combine la date et l'heure en un seul LocalDateTime
+        LocalDateTime dateTime = LocalDateTime.of(date, time);
 
+        // Format de la date en anglais
+        DateTimeFormatter formatterEnglish = DateTimeFormatter.ofPattern("EEEE, MMMM dd, yyyy HH:mm", Locale.ENGLISH);
+        String formattedDateEnglish = dateTime.format(formatterEnglish);
 
+        // Format de la date en arabe
+        DateTimeFormatter formatterArabic = DateTimeFormatter.ofPattern("EEEE, MMMM dd, yyyy HH:mm", new Locale("ar"));
+        String formattedDateArabic = dateTime.format(formatterArabic);
 
+        // Message avec les deux versions
+        String message = "Hello " + nomPatient + ",\n\n" +
+                "This is a reminder for your appointment scheduled on " + formattedDateEnglish + ".\n" +
+                "Your appointment is with Dr. " + nomProfessional + ".\n\n" +
+                "مرحبا " + nomPatient + "،\n\n" +
+                "هذه تذكرة بموعدك المحدد في " + formattedDateArabic + ".\n" +
+                "موعدك مع الدكتور " + nomProfessional + ".\n\n" +
+                "Thank you for your attention.\n" +
+                "شكرا لاهتمامك.";
+
+        // Configuration de l'email
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setFrom("doctNet@outlook.com");
         mailMessage.setTo(emailPatient);
-        mailMessage.setSubject("Rappel de votre rendez-vous");
+        mailMessage.setSubject("Appointment Reminder / تذكير بالموعد");
         mailMessage.setText(message);
 
+        // Envoi de l'email
         mailSender.send(mailMessage);
     }
-
 }
 

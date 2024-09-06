@@ -12,7 +12,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+
 public class HealthProfessional extends Person {
+    @Column
+    private String bio ;
+
     @Column
     private String clinicAddress;
 
@@ -27,6 +31,11 @@ public class HealthProfessional extends Person {
 
     @Column
     private double  longitude;
+
+
+
+
+
     // Relationship with Notification
 //    @OneToMany(mappedBy = "healthProfessional")
 //    private List<Notification> notifications;

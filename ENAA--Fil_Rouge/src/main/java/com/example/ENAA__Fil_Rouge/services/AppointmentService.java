@@ -3,13 +3,21 @@ package com.example.ENAA__Fil_Rouge.services;
 
 import com.example.ENAA__Fil_Rouge.enums.AppointmentStatus;
 import com.example.ENAA__Fil_Rouge.models.Appointment;
+import com.example.ENAA__Fil_Rouge.models.HealthProfessional;
+import com.example.ENAA__Fil_Rouge.models.Patient;
 import com.example.ENAA__Fil_Rouge.repositories.AppointmentRepository;
+import com.example.ENAA__Fil_Rouge.repositories.HealthProfessionalRepository;
+import com.example.ENAA__Fil_Rouge.repositories.PatientRepository;
+import com.fasterxml.jackson.databind.DatabindException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,14 +26,25 @@ public class AppointmentService {
 
     @Autowired
     private AppointmentRepository appointRepository;  // Dependency injection for the Appointment repository
-
+    @Autowired
+    private PatientRepository patientRepository;
+    @Autowired
+    private HealthProfessionalRepository healthProfessionalRepository ;
     /**
      * Adds a new appointment to the database.
      * @param appointment The appointment to add.
      * @return The saved appointment.
      */
-    public Appointment addAppointment(Appointment appointment) {
-        return appointRepository.save(appointment);
+    public Appointment addAppointment(Appointment appointment , Long patId , Long docId) {
+        Appointment appointment1=new Appointment();
+        Patient patient = patientRepository.findById(patId).get();
+        HealthProfessional doc = healthProfessionalRepository.findById(docId).get();
+        appointment1.setDate(appointment.getDate());
+       appointment1.setTime(appointment.getTime());
+        appointment1.setPatient(patient);
+        appointment1.setProfessional(doc);
+
+        return appointRepository.save(appointment1);
     }
 
     /**
@@ -77,13 +96,19 @@ public class AppointmentService {
 
     private final List<LocalTime> defaultHours = Arrays.asList(
             LocalTime.of(9, 0),
+            LocalTime.of(9, 30),
+            LocalTime.of(10, 0),
+            LocalTime.of(10, 30),
             LocalTime.of(11, 0),
+            LocalTime.of(11, 30),
             LocalTime.of(12, 0),
-            LocalTime.of(14, 0),
-            LocalTime.of(15, 0),
-            LocalTime.of(16, 0),
-            LocalTime.of(17, 0),
-            LocalTime.of(18, 0)
+            LocalTime.of(12, 30),
+            LocalTime.of(1, 0),
+            LocalTime.of(2, 30),
+            LocalTime.of(3, 0),
+            LocalTime.of(3, 30),
+            LocalTime.of(4, 0),
+            LocalTime.of(4, 30)
     );
 
     public List<LocalTime> getAvailableTimes(LocalDate date) {
@@ -92,14 +117,14 @@ public class AppointmentService {
                 .map(Appointment::getTime)
                 .collect(Collectors.toList());
 
-
+        // Retourne les créneaux qui ne sont pas encore réservés
         return defaultHours.stream()
                 .filter(time -> !reservedTimes.contains(time))
                 .collect(Collectors.toList());
     }
 
 
-
+    // Réserver un créneau
     public void reserveAppointment(LocalDate date, LocalTime time, Long patientId) {
         Appointment appointment = new Appointment();
         appointment.setDate(date);
@@ -108,5 +133,8 @@ public class AppointmentService {
         // Attribuez un patient, vous pouvez récupérer l'instance depuis le repo de patient
         appointRepository.save(appointment);
     }
+
+
+
 
 }
