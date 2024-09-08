@@ -2,6 +2,7 @@ package com.example.ENAA__Fil_Rouge.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.*;
 
@@ -39,4 +40,8 @@ public class HealthProfessional extends Person {
     // Relationship with Notification
 //    @OneToMany(mappedBy = "healthProfessional")
 //    private List<Notification> notifications;
+
+
+
+
 }

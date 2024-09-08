@@ -40,7 +40,7 @@ public class AppointmentService {
         Patient patient = patientRepository.findById(patId).get();
         HealthProfessional doc = healthProfessionalRepository.findById(docId).get();
         appointment1.setDate(appointment.getDate());
-       appointment1.setTime(appointment.getTime());
+        appointment1.setTime(appointment.getTime());
         appointment1.setPatient(patient);
         appointment1.setProfessional(doc);
 
@@ -133,6 +133,9 @@ public class AppointmentService {
         // Attribuez un patient, vous pouvez récupérer l'instance depuis le repo de patient
         appointRepository.save(appointment);
     }
+
+
+
 
 
 

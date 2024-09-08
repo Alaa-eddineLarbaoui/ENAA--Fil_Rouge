@@ -18,4 +18,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     @Query(value = "SELECT * FROM appointment a WHERE a.date < :dans48heurs AND a.date > :maintenant AND a.notification_envoyee = false", nativeQuery = true)
     List<Appointment> findByDateAndTimeBeforeAndNotificationEnvoyeeFalse(@Param("dans48heurs") LocalDate date1, @Param("maintenant") LocalDate date2);
 
+
+
+
 }
