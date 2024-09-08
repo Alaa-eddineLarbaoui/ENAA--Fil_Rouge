@@ -42,6 +42,6 @@ public class HealthProfessional extends Person {
 //    private List<Notification> notifications;
 
 
-
-
+    @OneToMany(mappedBy = "professional")
+    private List<Availability> availabilities;
 }
