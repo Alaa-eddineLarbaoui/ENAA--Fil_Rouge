@@ -49,4 +49,17 @@ public class AvailabilityService {
                 .collect(Collectors.toList());
     }
 
+
+    public Availability createAvailability(Availability availability, Long professionalId) {
+        Availability availability1 =new Availability();
+
+        HealthProfessional healthProfessional = professionalRepository.findById(professionalId).get();
+        availability1.setDate(availability.getDate());
+        availability1.setStartTime(availability.getStartTime());
+        availability1.setEndTime(availability.getEndTime());
+        availability1.setProfessional(healthProfessional);
+        availability1.setAvailable(true);
+        return availabilityRepository.save(availability1);
+    }
 }
+

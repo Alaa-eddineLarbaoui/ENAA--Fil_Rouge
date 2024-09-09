@@ -82,8 +82,8 @@ public class AppointmentService {
         Appointment appointment1 = getAppointment(id);  // Retrieves the appointment by ID
 
         // Update the fields of the existing appointment
-        appointment1.setTime(appointment.getTime()); // Utilisez setDateTime() si vous avez fusionné date et time
-        appointment1.setDate(appointment.getDate()); // Utilisez setDateTime() si vous avez fusionné date et time
+        appointment1.setTime(appointment.getTime());
+        appointment1.setDate(appointment.getDate());
 
         appointment1.setStatus(appointment.getStatus());
         appointment1.setAppointmentReason(appointment.getAppointmentReason());
