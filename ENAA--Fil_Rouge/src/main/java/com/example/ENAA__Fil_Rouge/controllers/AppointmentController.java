@@ -52,4 +52,6 @@ public class AppointmentController {
         return appointmentService.addAppointment(appointment,patId,docId);
     }
 
+
+
 }

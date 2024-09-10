@@ -1,11 +1,9 @@
 package com.example.ENAA__Fil_Rouge.services;
 
-import com.example.ENAA__Fil_Rouge.enums.AppointmentReason;
-import com.example.ENAA__Fil_Rouge.enums.AppointmentStatus;
+
 import com.example.ENAA__Fil_Rouge.models.Appointment;
 import com.example.ENAA__Fil_Rouge.models.Availability;
 import com.example.ENAA__Fil_Rouge.models.HealthProfessional;
-import com.example.ENAA__Fil_Rouge.models.Patient;
 import com.example.ENAA__Fil_Rouge.repositories.AppointmentRepository;
 import com.example.ENAA__Fil_Rouge.repositories.AvailabilityRepository;
 import com.example.ENAA__Fil_Rouge.repositories.HealthProfessionalRepository;
@@ -58,7 +56,7 @@ public class AvailabilityService {
         availability1.setStartTime(availability.getStartTime());
         availability1.setEndTime(availability.getEndTime());
         availability1.setProfessional(healthProfessional);
-        availability1.setAvailable(true);
+        availability1.setAvailable(availability.isAvailable());
         return availabilityRepository.save(availability1);
     }
 }
