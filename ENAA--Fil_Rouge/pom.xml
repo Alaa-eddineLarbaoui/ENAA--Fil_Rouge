@@ -62,13 +62,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-
-		<!-- Dependency to create a web application with Spring MVC -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-
 		<!-- Dependency to use Lombok, which reduces boilerplate code by automatically generating getters, setters, etc. -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -76,13 +69,21 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Dependency to add security with Spring Security
+		<!-- Dependency to create a web application with Spring MVC -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+
+
+		<!-- Dependency to add security with Spring Security -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 			<version>3.3.0</version>
 		</dependency>
--->
+
 		<!-- Dependency to use JWT (JSON Web Token) for authentication and authorization -->
 		<!-- Main API for JJWT -->
 		<dependency>
