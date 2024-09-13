@@ -54,7 +54,7 @@ public abstract class Person implements UserDetails {
     public String getPassword() {
         return this.password;
     }
-    
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
