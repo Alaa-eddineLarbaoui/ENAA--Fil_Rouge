@@ -1,6 +1,7 @@
 package com.example.ENAA__Fil_Rouge.models;
 
 import com.example.ENAA__Fil_Rouge.enums.Erole;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -30,13 +31,17 @@ public abstract class Person implements UserDetails {
     @Column(length = 100, nullable = false)
     private String password;
 
-    @Column(length = 15, unique = true, nullable = false)
-    private String phoneNumber;
+    @Column(length = 15, unique = true)
+    private Long phoneNumber;
 
-    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Erole role;
 
+
+
+
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (role == null) {
 
@@ -56,21 +61,25 @@ public abstract class Person implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonLocked() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isEnabled() {
         return true;
     }

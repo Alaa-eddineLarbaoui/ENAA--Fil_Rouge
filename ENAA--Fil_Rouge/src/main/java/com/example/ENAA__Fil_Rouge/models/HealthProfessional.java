@@ -1,9 +1,8 @@
 package com.example.ENAA__Fil_Rouge.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import com.example.ENAA__Fil_Rouge.enums.Speciality;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
@@ -21,8 +20,9 @@ public class HealthProfessional extends Person {
     @Column
     private String clinicAddress;
 
-    @Column
-    private String specialty;
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
+    private Speciality specialty;
 
     @Column
     private String registrationNumber;
@@ -43,5 +43,6 @@ public class HealthProfessional extends Person {
 
 
     @OneToMany(mappedBy = "professional")
+    @JsonIgnore
     private List<Availability> availabilities;
 }

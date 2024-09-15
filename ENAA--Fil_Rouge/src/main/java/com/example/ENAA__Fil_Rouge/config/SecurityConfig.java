@@ -45,11 +45,11 @@ public class SecurityConfig  {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(expressionInterceptUrlRegistry ->
                                 expressionInterceptUrlRegistry
-                                        .requestMatchers("/api/auth/signup").hasRole(String.valueOf(Erole.ADMIN))
-                                        .requestMatchers("/api/auth/login").permitAll()
-
-                                        .anyRequest().authenticated()
-//                                  .anyRequest().permitAll()
+//                                        .requestMatchers("/api/auth/signup").hasRole(String.valueOf(Erole.ADMIN))
+//                                        .requestMatchers("/api/auth/login").permitAll()
+//
+//                                        .anyRequest().authenticated()
+                                  .anyRequest().permitAll()
 
 
                 );

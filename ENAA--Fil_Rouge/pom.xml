@@ -76,6 +76,12 @@
 		</dependency>
 
 
+		<!-- Spring Boot DevTools: Enables automatic application restart and reload on code changes -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+		</dependency>
 
 		<!-- Dependency to add security with Spring Security -->
 		<dependency>
