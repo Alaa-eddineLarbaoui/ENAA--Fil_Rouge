@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-
+@Builder
 public class HealthProfessional extends Person {
     @Column
     private String bio ;

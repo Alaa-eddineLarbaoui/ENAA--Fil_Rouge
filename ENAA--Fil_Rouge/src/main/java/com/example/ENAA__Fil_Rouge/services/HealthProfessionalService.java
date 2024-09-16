@@ -1,17 +1,19 @@
 package com.example.ENAA__Fil_Rouge.services;
 
+import com.example.ENAA__Fil_Rouge.enums.Speciality;
 import com.example.ENAA__Fil_Rouge.models.HealthProfessional;
+import com.example.ENAA__Fil_Rouge.models.QHealthProfessional;
 import com.example.ENAA__Fil_Rouge.repositories.HealthProfessionalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.querydsl.core.BooleanBuilder;
 import java.util.List;
 
 @Service
 public class HealthProfessionalService {
 
     @Autowired
-    private HealthProfessionalRepository healthProfessionalRepository;  // Dependency injection for the HealthProfessional repository
+    private HealthProfessionalRepository healthProfessionalRepository;
 
     /**
      * Registers a new health professional in the database.
@@ -67,5 +69,21 @@ public class HealthProfessionalService {
      */
     public void deleteHealthProfessional(Long id) {
         healthProfessionalRepository.deleteById(id);
+    }
+
+
+
+    public List<HealthProfessional> filterDoctor( Speciality speciality , String clinicAddress  ) {
+        QHealthProfessional healthProfessional  = QHealthProfessional.healthProfessional;
+        BooleanBuilder builder = new BooleanBuilder();
+        if (speciality != null) {
+            builder.and(healthProfessional.specialty.eq(speciality));
+        }
+
+        if (clinicAddress != null) {
+            builder.and(healthProfessional.clinicAddress.eq(clinicAddress));
+        }
+        return (List<HealthProfessional>) healthProfessionalRepository.findAll(builder);
+
     }
 }
