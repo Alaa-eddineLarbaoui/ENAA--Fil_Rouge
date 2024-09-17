@@ -56,6 +56,7 @@ public class HealthProfessionalService {
         healthProfessional.setEmail(updateProf.getEmail());
         healthProfessional.setPassword(updateProf.getPassword());
         healthProfessional.setPhoneNumber(updateProf.getPhoneNumber());
+        healthProfessional.setBio(updateProf.getBio());
         healthProfessional.setClinicAddress(updateProf.getClinicAddress());
         healthProfessional.setSpecialty(updateProf.getSpecialty());
         healthProfessional.setRegistrationNumber(updateProf.getRegistrationNumber());
@@ -81,7 +82,7 @@ public class HealthProfessionalService {
         }
 
         if (clinicAddress != null) {
-            builder.and(healthProfessional.clinicAddress.eq(clinicAddress));
+            builder.and(healthProfessional.clinicAddress.contains(clinicAddress));
         }
         return (List<HealthProfessional>) healthProfessionalRepository.findAll(builder);
 

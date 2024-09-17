@@ -48,6 +48,8 @@ public class HealthProfessionalController {
     public List<HealthProfessional> search (@RequestParam (required = false) Speciality speciality ,
                                             @RequestParam (required = false) String  clinicAddress ) {
 
-        return healthProfessionalService.filterDoctor(speciality  , clinicAddress);}
+        return healthProfessionalService.filterDoctor(speciality , clinicAddress);
+    }
+
 }
 
