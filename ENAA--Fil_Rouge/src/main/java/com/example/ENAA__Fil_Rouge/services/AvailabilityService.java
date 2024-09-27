@@ -59,5 +59,8 @@ public class AvailabilityService {
         availability1.setAvailable(availability.isAvailable());
         return availabilityRepository.save(availability1);
     }
+    public void deleteAvaibilityTime(Long idAvailability){
+        availabilityRepository.deleteById(idAvailability);
+    }
 }
 

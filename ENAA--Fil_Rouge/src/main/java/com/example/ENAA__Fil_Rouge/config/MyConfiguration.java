@@ -1,3 +1,4 @@
+/*
 package com.example.ENAA__Fil_Rouge.config;
 
 import org.springframework.context.annotation.Bean;
@@ -36,7 +37,7 @@ public class MyConfiguration implements WebMvcConfigurer {
         @Bean
         public CorsConfigurationSource corsConfigurationSource() {
             CorsConfiguration configuration = new CorsConfiguration();
-            configuration.setAllowedOrigins(List.of("http://localhost:4200"));
+            configuration.setAllowedOrigins(List.of("http://localhost:**"));
             configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
             configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
             configuration.setExposedHeaders(List.of("Authorization"));
@@ -48,4 +49,4 @@ public class MyConfiguration implements WebMvcConfigurer {
 
 
     }
-}
+}*/
