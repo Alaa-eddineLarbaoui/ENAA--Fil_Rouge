@@ -1,0 +1,23 @@
+version: "3.4"
+services:
+  server:
+    build: .
+    restart: always
+    ports:
+      - "8090:8090"
+    depends_on:
+      - mysqldb
+
+  mysqldb:
+    image: "mysql:latest"
+    restart: always
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_DATABASE: DocReserve_App
+      MYSQL_ROOT_PASSWORD: alaa2001..
+    volumes:
+      - db:/var/lib/mysql
+
+volumes:
+  db:
