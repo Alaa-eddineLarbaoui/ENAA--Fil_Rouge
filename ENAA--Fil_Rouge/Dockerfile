@@ -1,4 +1,4 @@
 FROM openjdk:17
-ADD target/app.jar app.jar
+COPY target/app.jar apps.jar
 EXPOSE 8090
-ENTRYPOINT ["java", "-jar" ,"/app.jar"]
+ENTRYPOINT ["java", "-jar", "/apps.jar"]
