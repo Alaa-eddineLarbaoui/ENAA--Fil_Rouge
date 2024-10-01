@@ -8,7 +8,6 @@ pipeline {
     environment {
         DOCKERHUB_CREDENTIALS = credentials('docker-hub-credentiels')
         DOCKER_IMAGE = "alaaelarbaoui/docnet:latest"
-        DOCKER_TAG = "${env.GIT_COMMIT.take(7)}"
         SONAR_TOKEN = credentials('sonartoken')
         SONARQUBE_SERVER = 'SonarServer'
     }
@@ -52,7 +51,7 @@ pipeline {
                     try {
                         echo "Building and pushing Docker image..."
 
-                        def builtImage = docker.build("${DOCKER_IMAGE}:${DOCKER_TAG}")
+                        def builtImage = docker.build("${DOCKER_IMAGE}")
 
                         docker.withRegistry('', "${DOCKERHUB_CREDENTIALS}") {
                             builtImage.push()
