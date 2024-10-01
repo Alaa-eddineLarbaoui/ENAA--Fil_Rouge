@@ -49,7 +49,7 @@ pipeline {
         stage('Quality Gate') {
             steps {
                 dir('ENAA--Fil_Rouge'){
-                   timeout(time: 1, unit: 'HOURS') {
+                   timeout(time: 5, unit: 'MINUTES') {
                         waitForQualityGate abortPipeline: true
                    }
                 }
