@@ -1,7 +1,7 @@
 version: "3.4"
 services:
   docnet:
-    image: alaaelarbaoui/docnet
+    image: alaaelarbaoui/docnet:latest
     container_name: docnet
     restart: always
     ports:
