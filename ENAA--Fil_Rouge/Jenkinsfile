@@ -9,8 +9,8 @@ pipeline {
         DOCKERHUB_CREDENTIALS = credentials('docker-hub-credentiels')
         DOCKER_IMAGE = "alaaelarbaoui/docnet:latest"
         DOCKER_TAG = "${env.GIT_COMMIT.take(7)}"
-        SONAR_TOKEN=credentials('sonartoken')
-        SONARQUBE_SERVER='SonarServer'
+        SONAR_TOKEN = credentials('sonartoken')
+        SONARQUBE_SERVER = 'SonarServer'
     }
 
     stages {
@@ -22,7 +22,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                dir('ENAA--Fil_Rouge'){
+                dir('ENAA--Fil_Rouge') {
                     bat 'mvn clean package -DskipTests'
                 }
             }
@@ -30,42 +30,39 @@ pipeline {
 
         stage('Test') {
             steps {
-                dir('ENAA--Fil_Rouge'){
-                bat 'mvn test'
+                dir('ENAA--Fil_Rouge') {
+                    bat 'mvn test'
                 }
             }
         }
 
         stage('SonarQube Analysis') {
             steps {
-                dir('ENAA--Fil_Rouge'){
+                dir('ENAA--Fil_Rouge') {
                     withSonarQubeEnv('SonarServer') {
-                       bat "mvn sonar:sonar -Dsonar.token=${SONAR_TOKEN}"
+                        bat "mvn sonar:sonar -Dsonar.token=${SONAR_TOKEN}"
                     }
                 }
             }
         }
 
-         stages {
-              stage('Build and Push Docker Image') {
-                  steps {
-                      script {
-                          try {
-                              echo "Building and pushing Docker image..."
+        stage('Build and Push Docker Image') {
+            steps {
+                script {
+                    try {
+                        echo "Building and pushing Docker image..."
 
-                              def builtImage = docker.build("${DOCKER_IMAGE}:${DOCKER_TAG}")
+                        def builtImage = docker.build("${DOCKER_IMAGE}:${DOCKER_TAG}")
 
-                              docker.withRegistry('', "${DOCKER_CREDENTIALS}") {
-                                  builtImage.push()
-                                  builtImage.push('latest')
-                              }
-                          } catch (Exception e) {
-                              error "Failed to build and push Docker image: ${e.message}"
-                          }
-                      }
-                  }
-              }
-          }
+                        docker.withRegistry('', "${DOCKERHUB_CREDENTIALS}") {
+                            builtImage.push()
+                            builtImage.push('latest')
+                        }
+                    } catch (Exception e) {
+                        error "Failed to build and push Docker image: ${e.message}"
+                    }
+                }
+            }
         }
 
         stage('Deploy') {
