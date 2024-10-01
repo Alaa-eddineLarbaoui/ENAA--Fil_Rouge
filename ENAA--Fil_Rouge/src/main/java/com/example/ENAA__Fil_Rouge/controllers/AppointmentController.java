@@ -1,9 +1,7 @@
 package com.example.ENAA__Fil_Rouge.controllers;
 
 import com.example.ENAA__Fil_Rouge.models.Appointment;
-import com.example.ENAA__Fil_Rouge.repositories.AppointmentRepository;
 import com.example.ENAA__Fil_Rouge.services.AppointmentService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 

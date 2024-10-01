@@ -31,24 +31,14 @@ public class AuthoController {
 
 
 
-    //    private Person authenticate(Person input) {
-//        authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(
-//                        input.getUsername(),
-//                        input.getPassword()
-//                )
-//        );
-//
-//        return personeRepository.findByUsername(input.getUsername());
-//    }
+
     @PostMapping("/login")
     public JwtDto login(@RequestBody LoginPersonDto loginPersonDto) {
-        System.out.println("eeeeeeeeeeeeeeeee");
 
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginPersonDto.getUsername(), loginPersonDto.getPassword())
         );
-        System.out.println("rrrrrrrrrrrrrrrrrrrrrr");
+
         Person person1 = personeRepository.findByUsername(loginPersonDto.getUsername());
         Erole role= person1.getRole();
         long userId = person1.getId();
