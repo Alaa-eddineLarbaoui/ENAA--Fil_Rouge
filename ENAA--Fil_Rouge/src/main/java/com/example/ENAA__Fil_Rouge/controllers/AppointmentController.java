@@ -4,26 +4,22 @@ import com.example.ENAA__Fil_Rouge.models.Appointment;
 import com.example.ENAA__Fil_Rouge.repositories.AppointmentRepository;
 import com.example.ENAA__Fil_Rouge.services.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+
 import java.util.List;
 
 @RestController
-@CrossOrigin("*")
 @RequestMapping("/api/appointments")
 public class AppointmentController {
 
-    @Autowired
-    private AppointmentService appointmentService;
+    private final AppointmentService appointmentService;
 
-    @Autowired
-    private AppointmentRepository appointmentRepository;
+ 
 
-
-
+    public AppointmentController(AppointmentService appointmentService) {
+        this.appointmentService = appointmentService;
+    }
 
 
     @GetMapping("/getAll")
