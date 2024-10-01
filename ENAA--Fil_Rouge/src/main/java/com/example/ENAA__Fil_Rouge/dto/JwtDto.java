@@ -7,6 +7,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class JwtDto {
-    private long user_id;
+    private long userId;
     private String token;
 }

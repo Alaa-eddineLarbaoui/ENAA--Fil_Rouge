@@ -3,11 +3,9 @@ package com.example.ENAA__Fil_Rouge.controllers;
 import com.example.ENAA__Fil_Rouge.enums.Speciality;
 import com.example.ENAA__Fil_Rouge.models.HealthProfessional;
 import com.example.ENAA__Fil_Rouge.services.HealthProfessionalService;
-import jakarta.mail.internet.HeaderTokenizer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController

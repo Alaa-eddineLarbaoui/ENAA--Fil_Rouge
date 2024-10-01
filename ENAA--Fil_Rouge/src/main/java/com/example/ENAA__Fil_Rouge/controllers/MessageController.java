@@ -2,7 +2,6 @@ package com.example.ENAA__Fil_Rouge.controllers;
 
 import com.example.ENAA__Fil_Rouge.models.Notification;
 import com.example.ENAA__Fil_Rouge.services.MessageService;
-import com.example.ENAA__Fil_Rouge.services.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
