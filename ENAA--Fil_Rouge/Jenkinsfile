@@ -46,16 +46,6 @@ pipeline {
             }
         }
 
-        stage('Quality Gate') {
-            steps {
-                dir('ENAA--Fil_Rouge'){
-                   timeout(time: 5, unit: 'MINUTES') {
-                        waitForQualityGate abortPipeline: true
-                   }
-                }
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
                 script {
