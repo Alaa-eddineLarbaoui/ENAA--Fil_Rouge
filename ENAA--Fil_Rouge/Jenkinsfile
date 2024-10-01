@@ -7,7 +7,6 @@ pipeline {
 
     environment {
         DOCKERHUB_CREDENTIALS = credentials('docker-hub-credentiels')
-        DOCKER_IMAGE = "alaaelarbaoui/docnet:latest"
         SONAR_TOKEN = credentials('sonartoken')
         SONARQUBE_SERVER = 'SonarServer'
     }
@@ -44,42 +43,27 @@ pipeline {
                 }
             }
         }
+        stage('Build Docker & Push') {
+                            steps {
 
-        stage('Build and Push Docker Image') {
-            steps {
-                script {
-                    try {
-                        echo "Building and pushing Docker image..."
-
-                        def builtImage = docker.build("${DOCKER_IMAGE}")
-
-                        docker.withRegistry('', "${DOCKERHUB_CREDENTIALS}") {
-                            builtImage.push()
-                            builtImage.push('latest')
+                                    script {
+                                        def dockerImage = docker.build("alaaelarbaoui/doc_net:${env.TAG_VERSION ?: 'latest'}")
+                                        docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
+                                            dockerImage.push()
+                                        }
+                                    }
+                            }
                         }
-                    } catch (Exception e) {
-                        error "Failed to build and push Docker image: ${e.message}"
                     }
                 }
-            }
-        }
 
-        stage('Deploy') {
-            steps {
-                script {
-                    bat '''
-                    docker-compose pull
-                    docker-compose up -d
-                    '''
+                stage('Deploy with Docker Compose') {
+                    steps {
+                        bat 'docker-compose up'
+                    }
                 }
-            }
-        }
-    }
 
-    post {
-        always {
-            junit '**/target/surefire-reports/*.xml'
-            cleanWs()
-        }
-    }
+
+
+
 }
