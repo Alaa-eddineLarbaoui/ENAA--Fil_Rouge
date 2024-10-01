@@ -11,7 +11,6 @@ import java.time.LocalTime;
 import java.util.List;
 
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
-    //List<Appointment> findByDateAndTimeBeforeAndNotificationEnvoyeeFalse(LocalDate date, LocalTime time);
     List<Appointment> findByDateAndTimeIn(LocalDate date, List<LocalTime> times);
 
 
