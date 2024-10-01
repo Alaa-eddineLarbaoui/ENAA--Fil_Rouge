@@ -9,6 +9,8 @@ pipeline {
         DOCKERHUB_CREDENTIALS = credentials('docker-hub-credentiels')
         DOCKER_IMAGE = "alaaelarbaoui/docnet"
         DOCKER_TAG = "${env.GIT_COMMIT.take(7)}"
+        SONAR_TOKEN=credentials('sonartoken')
+        SONARQUBE_SERVER='SonarServer'
     }
 
     stages {
@@ -37,8 +39,8 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 dir('ENAA--Fil_Rouge'){
-                    withSonarQubeEnv('SonarQube') {
-                       bat 'mvn sonar:sonar'
+                    withSonarQubeEnv('SonarServer') {
+                       bat "mvn sonar:sonar -Dsonar.token=${SONAR_TOKEN}"
                     }
                 }
             }
