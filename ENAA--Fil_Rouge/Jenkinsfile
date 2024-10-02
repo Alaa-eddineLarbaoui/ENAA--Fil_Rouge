@@ -9,6 +9,7 @@ pipeline {
         DOCKERHUB_CREDENTIALS = credentials('docker-hub-credentiels')
         SONAR_TOKEN = credentials('sonartoken')
         SONARQUBE_SERVER = 'SonarServer'
+        IMAGE_NAME = 'DocNet-app'
     }
 
     stages {
@@ -44,23 +45,45 @@ pipeline {
             }
         }
 
-        stage('Build Docker & Push') {
+        stage('Build Docker Images') {
+            steps {
+                dir('ENAA--Fil_Rouge') {
+                    bat "docker build -t ${IMAGE_NAME} ."
+                }
+            }
+        }
+
+        stage('Tag and Push Docker Images') {
             steps {
                 script {
-                    def dockerImage = docker.build("alaaelarbaoui/doc_net:${env.TAG_VERSION ?: 'latest'}", "-f ENAA--Fil_Rouge/Dockerfile .")
-                    docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
-                        dockerImage.push()
+                    docker.withRegistry("https://index.docker.io/v1/", 'docker-hub-credentiels') {
+                        bat """
+                            docker tag ${IMAGE_NAME}:latest alaaelarbaoui/doc_net:tagname
+                            docker push alaaelarbaoui/doc_net:tagname
+                        """
                     }
                 }
             }
         }
 
-        stage('Deploy with Docker Compose') {
+        stage('Run Docker Compose') {
             steps {
                 dir('ENAA--Fil_Rouge') {
                     bat 'docker-compose up -d'
                 }
             }
+        }
+    }
+
+    post {
+        always {
+            cleanWs()
+        }
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed!'
         }
     }
 }
