@@ -9,7 +9,7 @@ pipeline {
         DOCKERHUB_CREDENTIALS = credentials('docker-hub-credentiels')
         SONAR_TOKEN = credentials('sonartoken')
         SONARQUBE_SERVER = 'SonarServer'
-        IMAGE_NAME = 'DocNet-app'
+        IMAGE_NAME = 'docnet-app'
     }
 
     stages {
