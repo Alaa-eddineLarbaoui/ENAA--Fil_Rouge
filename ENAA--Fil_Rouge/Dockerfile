@@ -1,4 +1,4 @@
 FROM openjdk:17
-COPY target/*.jar apps.jar
+ADD target/*.jar appWs.jar
 EXPOSE 8090
-ENTRYPOINT ["java", "-jar", "/apps.jar"]
+ENTRYPOINT ["java", "-jar", "/appWs.jar"]

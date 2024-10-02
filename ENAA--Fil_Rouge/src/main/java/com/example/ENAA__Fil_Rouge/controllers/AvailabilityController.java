@@ -1,6 +1,8 @@
 package com.example.ENAA__Fil_Rouge.controllers;
 
 import com.example.ENAA__Fil_Rouge.models.Availability;
+import com.example.ENAA__Fil_Rouge.models.AvailabilityDto;
+import com.example.ENAA__Fil_Rouge.models.AvailabilityMapper;
 import com.example.ENAA__Fil_Rouge.services.AvailabilityService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -20,12 +22,16 @@ public class AvailabilityController {
     @Autowired
     private AvailabilityService availabilityService;
 
+    @Autowired
+    private AvailabilityMapper availabilityMapper;
+
     // Méthode pour créer une disponibilité avec des variables de chemin
 
     @PostMapping("/create/{professionalId}")
     public Availability createAvailability(
-            @RequestBody Availability availability,
+            @RequestBody AvailabilityDto availabilityDto,
             @PathVariable("professionalId") Long professionalId) {
+        Availability availability = availabilityMapper.toEntity(availabilityDto);
         return availabilityService.createAvailability(availability, professionalId);
     }
 
