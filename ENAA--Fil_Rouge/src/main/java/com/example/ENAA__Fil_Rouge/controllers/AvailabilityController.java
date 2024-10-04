@@ -1,8 +1,8 @@
 package com.example.ENAA__Fil_Rouge.controllers;
 
 import com.example.ENAA__Fil_Rouge.models.Availability;
-import com.example.ENAA__Fil_Rouge.models.AvailabilityDto;
-import com.example.ENAA__Fil_Rouge.models.AvailabilityMapper;
+import com.example.ENAA__Fil_Rouge.dto.AvailabilityDto;
+import com.example.ENAA__Fil_Rouge.mapper.AvailabilityMapper;
 import com.example.ENAA__Fil_Rouge.services.AvailabilityService;
 import org.springframework.beans.factory.annotation.Autowired;
 

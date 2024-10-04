@@ -1,5 +1,7 @@
-package com.example.ENAA__Fil_Rouge.models;
+package com.example.ENAA__Fil_Rouge.dto;
 
+import com.example.ENAA__Fil_Rouge.models.Availability;
+import com.example.ENAA__Fil_Rouge.models.HealthProfessional;
 import lombok.Value;
 
 import java.io.Serializable;
@@ -15,5 +17,5 @@ public class AvailabilityDto implements Serializable {
     LocalTime startTime;
     LocalTime endTime;
     HealthProfessional professional;
-    boolean available;
+    boolean available = true;
 }

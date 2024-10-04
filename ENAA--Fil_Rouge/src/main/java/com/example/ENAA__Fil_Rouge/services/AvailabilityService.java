@@ -49,15 +49,9 @@ public class AvailabilityService {
 
 
     public Availability createAvailability(Availability availability, Long professionalId) {
-        Availability availability1 =new Availability();
-
-        HealthProfessional healthProfessional = professionalRepository.findById(professionalId).get();
-        availability1.setDate(availability.getDate());
-        availability1.setStartTime(availability.getStartTime());
-        availability1.setEndTime(availability.getEndTime());
-        availability1.setProfessional(healthProfessional);
-        availability1.setAvailable(availability.isAvailable());
-        return availabilityRepository.save(availability1);
+        HealthProfessional healthProfessional = professionalRepository.findById(professionalId).orElseThrow();
+        availability.setProfessional(healthProfessional);
+        return availabilityRepository.save(availability);
     }
     public void deleteAvaibilityTime(Long idAvailability){
         availabilityRepository.deleteById(idAvailability);

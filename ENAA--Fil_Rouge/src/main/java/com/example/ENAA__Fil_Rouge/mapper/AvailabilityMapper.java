@@ -1,4 +1,7 @@
-package com.example.ENAA__Fil_Rouge.models;
+package com.example.ENAA__Fil_Rouge.mapper;
+
+import com.example.ENAA__Fil_Rouge.dto.AvailabilityDto;
+import com.example.ENAA__Fil_Rouge.models.Availability;
 
 @org.mapstruct.Mapper(unmappedTargetPolicy = org.mapstruct.ReportingPolicy.IGNORE, componentModel = "spring")
 public interface AvailabilityMapper {
