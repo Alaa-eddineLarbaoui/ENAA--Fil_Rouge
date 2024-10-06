@@ -7,6 +7,7 @@ import com.example.docnet.services.AvailabilityService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -27,6 +28,7 @@ public class AvailabilityController {
 
     // Méthode pour créer une disponibilité avec des variables de chemin
 
+    @PreAuthorize("hasRole('DOCTOR')")
     @PostMapping("/create/{professionalId}")
     public Availability createAvailability(
             @RequestBody AvailabilityDto availabilityDto,

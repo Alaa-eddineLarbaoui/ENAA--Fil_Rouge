@@ -1,5 +1,6 @@
 package com.example.docnet.config;
 
+import com.example.docnet.enums.Erole;
 import com.example.docnet.repositories.PersoneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig  {
+
 
     @Autowired
     private PersoneRepository personeRepository;
@@ -44,8 +46,13 @@ public class SecurityConfig  {
                                 expressionInterceptUrlRegistry
 //                                        .requestMatchers("/api/auth/signup").hasRole(String.valueOf(Erole.ADMIN))
 //                                        .requestMatchers("/api/auth/login").permitAll()
+//                                        .requestMatchers("/swagger-ui/**").permitAll()
+//                                        .requestMatchers("v3/api-docs/**").permitAll()
+//                                        .requestMatchers("/api/appointments/**").hasRole(String.valueOf(Erole.PATIENT))
+//                                        .requestMatchers("/api/availabilities/**").permitAll()
+//                                        .requestMatchers("/api/availabilities/available-times").permitAll()
 //
-//                                        .anyRequest().authenticated()
+                                       // .anyRequest().authenticated()
                                   .anyRequest().permitAll()
 
 

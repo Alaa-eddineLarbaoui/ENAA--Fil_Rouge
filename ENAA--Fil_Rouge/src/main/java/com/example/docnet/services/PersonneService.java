@@ -26,21 +26,33 @@ public class PersonneService {
         return "person signup";
     }
 
-    private Person createUserByRole(SingUpDto request) {
-        String encodedPassword = passwordEncoder.encode(request.getPassword());
+    private Person createUserByRole(SingUpDto singUpDto) {
+        String encodedPassword = passwordEncoder.encode(singUpDto.getPassword());
 
-        Person person = switch (request.getRole()) {
+        Person person = switch (singUpDto.getRole()) {
             case ADMIN -> new Admin();
             case DOCTOR -> new HealthProfessional();
             default -> new Patient();
         };
 
-        person.setUsername(request.getUsername());
-        person.setEmail(request.getEmail());
+        person.setUsername(singUpDto.getUsername());
+        person.setEmail(singUpDto.getEmail());
         person.setPassword(encodedPassword);
         System.out.println(person.getRole()+"jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
-        person.setRole(request.getRole());
-
+        person.setRole(singUpDto.getRole());
         return person;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

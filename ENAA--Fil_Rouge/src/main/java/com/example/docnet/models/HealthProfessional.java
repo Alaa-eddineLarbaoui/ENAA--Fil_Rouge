@@ -1,5 +1,6 @@
 package com.example.docnet.models;
 
+import com.example.docnet.enums.Localisation;
 import com.example.docnet.enums.Speciality;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -22,7 +23,13 @@ public class HealthProfessional extends Person {
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
+     private Localisation localisation;
+
+
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
     private Speciality specialty;
+
 
     @Column
     private String registrationNumber;
@@ -45,4 +52,6 @@ public class HealthProfessional extends Person {
     @OneToMany(mappedBy = "professional")
     @JsonIgnore
     private List<Availability> availabilities;
+
+
 }

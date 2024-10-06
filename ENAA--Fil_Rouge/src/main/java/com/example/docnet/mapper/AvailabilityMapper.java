@@ -7,7 +7,6 @@ import com.example.docnet.models.Availability;
 public interface AvailabilityMapper {
     Availability toEntity(AvailabilityDto availabilityDto);
 
-    AvailabilityDto toDto(Availability availability);
 
     @org.mapstruct.BeanMapping(nullValuePropertyMappingStrategy = org.mapstruct.NullValuePropertyMappingStrategy.IGNORE)
     Availability partialUpdate(AvailabilityDto availabilityDto, @org.mapstruct.MappingTarget Availability availability);
