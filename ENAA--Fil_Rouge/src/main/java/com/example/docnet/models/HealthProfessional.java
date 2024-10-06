@@ -53,5 +53,10 @@ public class HealthProfessional extends Person {
     @JsonIgnore
     private List<Availability> availabilities;
 
+    // Relation OneToMany avec Patient
+//    @OneToMany(mappedBy = "healthProfessional")
+//    @JsonIgnore
+//    private List<Patient> patients;
+
 
 }

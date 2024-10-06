@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class AppointmentService {
 
     @Autowired
-    private AppointmentRepository appointRepository;  // Dependency injection for the Appointment repository
+    private AppointmentRepository appointRepository;
     @Autowired
     private PatientRepository patientRepository;
     @Autowired
@@ -89,37 +89,6 @@ public class AppointmentService {
     }
 
 
-
-    private final List<LocalTime> defaultHours = Arrays.asList(
-            LocalTime.of(9, 0),
-            LocalTime.of(9, 30),
-            LocalTime.of(10, 0),
-            LocalTime.of(10, 30),
-            LocalTime.of(11, 0),
-            LocalTime.of(11, 30),
-            LocalTime.of(12, 0),
-            LocalTime.of(12, 30),
-            LocalTime.of(1, 0),
-            LocalTime.of(2, 30),
-            LocalTime.of(3, 0),
-            LocalTime.of(3, 30),
-            LocalTime.of(4, 0),
-            LocalTime.of(4, 30)
-    );
-
-    public List<LocalTime> getAvailableTimes(LocalDate date) {
-        List<Appointment> reservedAppointments = appointRepository.findByDateAndTimeIn(date, defaultHours);
-        List<LocalTime> reservedTimes = reservedAppointments.stream()
-                .map(Appointment::getTime)
-                .collect(Collectors.toList());
-
-        // Retourne les créneaux qui ne sont pas encore réservés
-        return defaultHours.stream()
-                .filter(time -> !reservedTimes.contains(time))
-                .collect(Collectors.toList());
-    }
-
-
     // Réserver un créneau
     public void reserveAppointment(LocalDate date, LocalTime time, Long patientId) {
         Appointment appointment = new Appointment();
@@ -128,6 +97,13 @@ public class AppointmentService {
         appointment.setStatus(AppointmentStatus.RESERVED);
         // Attribuez un patient, vous pouvez récupérer l'instance depuis le repo de patient
         appointRepository.save(appointment);
+    }
+
+    public List<Appointment> getAllByIdPatient(Long patientId) {
+        return appointRepository.findByPatient_Id(patientId);
+    }
+    public List<Appointment> getAllByIdDoctor(Long doctorId) {
+        return appointRepository.findByProfessional_Id(doctorId);
     }
 
 

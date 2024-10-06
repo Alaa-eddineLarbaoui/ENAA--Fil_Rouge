@@ -46,6 +46,13 @@ public class AppointmentController {
         return appointmentService.addAppointment(appointment,patId,docId);
     }
 
-
-
+    @GetMapping("doctor/get/{doctorId}")
+    public List <Appointment> getByDoctorId(@PathVariable Long doctorId) {
+        return appointmentService.getAllByIdDoctor(doctorId);
+    }
+    @GetMapping("patient/get/{patientId}")
+    public List <Appointment> getByPatientId(@PathVariable Long patientId) {
+        return appointmentService.getAllByIdPatient(patientId);
+    }
+    
 }
