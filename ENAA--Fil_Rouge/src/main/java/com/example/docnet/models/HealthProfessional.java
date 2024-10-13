@@ -40,6 +40,12 @@ public class HealthProfessional extends Person {
     @Column
     private double  longitude;
 
+    @Column
+    private Long  price;
+
+    @Column
+    private String formation;
+
 
 
 

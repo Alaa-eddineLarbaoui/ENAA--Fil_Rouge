@@ -1,7 +1,9 @@
 package com.example.docnet.services;
 
 
+import com.example.docnet.dto.AppointmentDto;
 import com.example.docnet.enums.AppointmentStatus;
+import com.example.docnet.mapper.AppointmentMapper;
 import com.example.docnet.models.Appointment;
 import com.example.docnet.models.HealthProfessional;
 import com.example.docnet.models.Patient;
@@ -26,29 +28,48 @@ public class AppointmentService {
     private PatientRepository patientRepository;
     @Autowired
     private HealthProfessionalRepository healthProfessionalRepository ;
+
+    @Autowired
+    private AppointmentMapper appointmentMapper;
     /**
      * Adds a new appointment to the database.
      * @param appointment The appointment to add.
      * @return The saved appointment.
      */
-    public Appointment addAppointment(Appointment appointment , Long patId , Long docId) {
-        Appointment appointment1=new Appointment();
+//    public Appointment addAppointment(Appointment appointment , Long patId , Long docId) {
+//        Appointment appointment1=new Appointment();
+//        Patient patient = patientRepository.findById(patId).get();
+//        HealthProfessional doc = healthProfessionalRepository.findById(docId).get();
+//
+//        appointment1.setDate(appointment.getDate());
+//        appointment1.setTime(appointment.getTime());
+//        appointment1.setNote(appointment.getNote());
+//        appointment1.setAppointmentReason(appointment.getAppointmentReason());
+//        appointment1.setStatus(appointment.getStatus());
+//        appointment1.setPatient(patient);
+//        appointment1.setProfessional(doc);
+//
+//        return appointRepository.save(appointment1);
+//    }
+
+
+    public AppointmentDto addAppointment(AppointmentDto appointment , Long patId , Long docId) {
+        Appointment appointment1=appointmentMapper.toEntity(appointment);
+        AppointmentDto saveddata = appointmentMapper.toDto(appointRepository.save(appointment1));
+
         Patient patient = patientRepository.findById(patId).get();
         HealthProfessional doc = healthProfessionalRepository.findById(docId).get();
-        appointment1.setDate(appointment.getDate());
-        appointment1.setTime(appointment.getTime());
-        appointment1.setPatient(patient);
-        appointment1.setProfessional(doc);
 
-        return appointRepository.save(appointment1);
+        return saveddata;
     }
+
 
     /**
      * Retrieves all appointments from the database.
      * @return A list of all appointments.
      */
-    public List<Appointment> getAllAppointment() {
-        return appointRepository.findAll();
+    public List<AppointmentDto> getAllAppointment() {
+        return appointmentMapper.toDtos(appointRepository.findAll());
     }
 
     /**
@@ -86,17 +107,6 @@ public class AppointmentService {
         appointment1.setNote(appointment.getNote());
 
         return appointRepository.save(appointment1);  // Save the changes to the database
-    }
-
-
-    // Réserver un créneau
-    public void reserveAppointment(LocalDate date, LocalTime time, Long patientId) {
-        Appointment appointment = new Appointment();
-        appointment.setDate(date);
-        appointment.setTime(time);
-        appointment.setStatus(AppointmentStatus.RESERVED);
-        // Attribuez un patient, vous pouvez récupérer l'instance depuis le repo de patient
-        appointRepository.save(appointment);
     }
 
     public List<Appointment> getAllByIdPatient(Long patientId) {

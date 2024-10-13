@@ -27,7 +27,7 @@ public class NotificationService {
     private AppointmentRepository appointmentRepository;
 
 
-    @Scheduled(fixedDelay = 3600000)
+    @Scheduled(fixedDelay = 10000000)
     public void envoyerNotifications() {
         LocalDateTime maintenant = LocalDateTime.now();
         LocalDateTime dans48Heures = maintenant.plusHours(48);

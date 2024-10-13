@@ -2,6 +2,7 @@ package com.example.docnet.models;
 
 import com.example.docnet.enums.Erole;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -29,6 +30,8 @@ public abstract class Person implements UserDetails {
     private String email;
 
     @Column(length = 100, nullable = false)
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Column(length = 15, unique = true)

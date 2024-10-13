@@ -44,16 +44,17 @@ public class SecurityConfig  {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(expressionInterceptUrlRegistry ->
                                 expressionInterceptUrlRegistry
-//                                        .requestMatchers("/api/auth/signup").hasRole(String.valueOf(Erole.ADMIN))
-//                                        .requestMatchers("/api/auth/login").permitAll()
-//                                        .requestMatchers("/swagger-ui/**").permitAll()
-//                                        .requestMatchers("v3/api-docs/**").permitAll()
-//                                        .requestMatchers("/api/appointments/**").hasRole(String.valueOf(Erole.PATIENT))
-//                                        .requestMatchers("/api/availabilities/**").permitAll()
-//                                        .requestMatchers("/api/availabilities/available-times").permitAll()
-//
-                                       // .anyRequest().authenticated()
-                                  .anyRequest().permitAll()
+                                        .requestMatchers("/api/auth/signup").permitAll()
+                                        .requestMatchers("/api/auth/login").permitAll()
+                                        .requestMatchers("/swagger-ui/**").permitAll()
+                                        .requestMatchers("v3/api-docs/**").permitAll()
+                                        .requestMatchers("/api/availabilities/**").permitAll()
+                                        .requestMatchers("/api/availabilities/available-times").permitAll()
+                                        .requestMatchers("/api/health-professionals/**").permitAll()
+
+
+                                        .anyRequest().authenticated()
+                                //  .anyRequest().permitAll()
 
 
                 );

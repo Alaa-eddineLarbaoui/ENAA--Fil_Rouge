@@ -8,6 +8,7 @@ import com.example.docnet.enums.Erole;
 import com.example.docnet.models.Person;
 import com.example.docnet.repositories.PersoneRepository;
 import com.example.docnet.services.PersonneService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -47,7 +48,7 @@ public class AuthoController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<String> signup(@RequestBody SingUpDto singUpDto){
+    public ResponseEntity<String> signup(@RequestBody SingUpDto singUpDto) throws JsonProcessingException {
         return ResponseEntity.ok(personneService.register(singUpDto));
     }
 

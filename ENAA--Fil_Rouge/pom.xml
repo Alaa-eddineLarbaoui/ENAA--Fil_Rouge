@@ -119,22 +119,6 @@
 			<scope>runtime</scope>
 		</dependency>
 
-		<!-- Dependency to use Mockito, a testing framework for mocking behaviors -->
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-core</artifactId>
-			<version>5.12.0</version>
-			<scope>test</scope>
-		</dependency>
-
-		<!-- Dependency to use JUnit 5, a framework for writing and running unit tests -->
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-api</artifactId>
-			<version>5.10.2</version>
-			<scope>test</scope>
-		</dependency>
-
 		<!-- Dependency to include Spring Boot testing tools -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -183,6 +167,21 @@
 			<artifactId>mapstruct-processor</artifactId>
 			<version>1.5.3.Final</version>
 			<scope>provided</scope>
+		</dependency>
+		<!-- Dependency to use Mockito, a testing framework for mocking behaviors -->
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>5.12.0</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Dependency to use JUnit 5, a framework for writing and running unit tests -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>5.10.2</version>
+			<scope>test</scope>
 		</dependency>
 
 

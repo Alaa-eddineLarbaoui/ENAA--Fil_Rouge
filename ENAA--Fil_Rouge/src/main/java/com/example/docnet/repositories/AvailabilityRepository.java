@@ -11,5 +11,5 @@ import java.util.List;
 public interface AvailabilityRepository extends JpaRepository<Availability ,Long> {
 
     List<AvailabilityDto1> findByDateAndProfessionalId(LocalDate date, Long professionalId);
-
+    List<AvailabilityDto1> findByProfessionalId(Long professionalId);
 }

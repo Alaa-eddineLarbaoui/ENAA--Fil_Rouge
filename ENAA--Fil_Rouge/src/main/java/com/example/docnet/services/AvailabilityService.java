@@ -2,6 +2,7 @@ package com.example.docnet.services;
 
 
 import com.example.docnet.dto.AvailabilityDto1;
+import com.example.docnet.mapper.AvailabilityMapper1;
 import com.example.docnet.models.Appointment;
 import com.example.docnet.models.Availability;
 import com.example.docnet.models.HealthProfessional;
@@ -31,26 +32,30 @@ public class AvailabilityService {
 
     @Autowired
     private AvailabilityRepository availabilityRepository;
+    @Autowired
+    private AvailabilityMapper1 availabilityMapper1;
 
 
-    public List<LocalTime> getAvailableTimes(LocalDate date, Long professionalId) {
+    public List<AvailabilityDto1> getAvailableTimes(LocalDate date, Long professionalId) {
 
-        // get appointment of doctor in date specefic
         List<Appointment> reservedAppointments = appointmentRepository.findByDateAndProfessionalId(date, professionalId);
 
-        // filter the reserved Time on form Time
+
         List<LocalTime> reservedTimes = reservedAppointments.stream()
                 .map(Appointment::getTime)
-                .collect(Collectors.toList());
+                .toList();
+
 
         List<AvailabilityDto1> availabilities = availabilityRepository.findByDateAndProfessionalId(date, professionalId);
 
-        // Filtrer les créneaux disponibles en fonction des réservations déjà effectuées
+
         return availabilities.stream()
                 .filter(availability -> !reservedTimes.contains(availability.getStartTime()))
-                .map(AvailabilityDto1::getStartTime)
+                .map(availability -> new AvailabilityDto1(availability.getId(), availability.getStartTime()))
                 .collect(Collectors.toList());
     }
+
+
 
 
     public Availability createAvailability(Availability availability, Long professionalId) {
@@ -58,8 +63,9 @@ public class AvailabilityService {
         availability.setProfessional(healthProfessional);
         return availabilityRepository.save(availability);
     }
-    public void deleteAvaibilityTime(Long idAvailability){
+    public void deleteAvaibilityTime(Long idAvailability) {
         availabilityRepository.deleteById(idAvailability);
     }
+
 }
 
