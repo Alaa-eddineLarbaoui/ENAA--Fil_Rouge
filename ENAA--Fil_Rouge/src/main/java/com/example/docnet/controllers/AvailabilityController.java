@@ -4,16 +4,12 @@ import com.example.docnet.dto.AvailabilityDto1;
 import com.example.docnet.models.Availability;
 import com.example.docnet.dto.AvailabilityDto;
 import com.example.docnet.mapper.AvailabilityMapper;
-import com.example.docnet.repositories.AvailabilityRepository;
 import com.example.docnet.services.AvailabilityService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 
@@ -22,14 +18,15 @@ import java.util.List;
 @RequestMapping("/api/availabilities")
 public class AvailabilityController {
 
-    @Autowired
-    private AvailabilityService availabilityService;
+    private final AvailabilityService availabilityService;
 
-    @Autowired
-    private AvailabilityMapper availabilityMapper;
+    private final AvailabilityMapper availabilityMapper;
 
-    @Autowired
-    private AvailabilityRepository availabilityRepository;
+
+    public AvailabilityController(AvailabilityService availabilityService, AvailabilityMapper availabilityMapper) {
+        this.availabilityService = availabilityService;
+        this.availabilityMapper = availabilityMapper;
+    }
 
     // Méthode pour créer une disponibilité avec des variables de chemin
 

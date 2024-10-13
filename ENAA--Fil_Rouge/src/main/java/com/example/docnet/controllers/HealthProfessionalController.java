@@ -3,7 +3,6 @@ package com.example.docnet.controllers;
 import com.example.docnet.enums.Speciality;
 import com.example.docnet.models.HealthProfessional;
 import com.example.docnet.services.HealthProfessionalService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,8 +12,11 @@ import java.util.List;
 @RequestMapping("/api/health-professionals")
 public class HealthProfessionalController {
 
-    @Autowired
-    private HealthProfessionalService healthProfessionalService;
+    private final HealthProfessionalService healthProfessionalService;
+
+    public HealthProfessionalController(HealthProfessionalService healthProfessionalService) {
+        this.healthProfessionalService = healthProfessionalService;
+    }
 
     @PostMapping("/register")
     public HealthProfessional registerHealthProfessional(@RequestBody HealthProfessional healthProfessional) {

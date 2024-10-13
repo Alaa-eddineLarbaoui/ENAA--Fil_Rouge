@@ -1,8 +1,6 @@
 package com.example.docnet.config;
 
-import com.example.docnet.enums.Erole;
 import com.example.docnet.repositories.PersoneRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,8 +19,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig  {
 
 
-    @Autowired
-    private PersoneRepository personeRepository;
+    private final PersoneRepository personeRepository;
+
+    public SecurityConfig(PersoneRepository personeRepository) {
+        this.personeRepository = personeRepository;
+    }
 
 
     @Bean
@@ -38,7 +39,7 @@ public class SecurityConfig  {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        System.out.println("filtercjain///////////");
+
 
         http
                 .csrf(AbstractHttpConfigurer::disable)
@@ -66,7 +67,6 @@ public class SecurityConfig  {
 
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
-        System.out.println("///////////athhmanager");
         AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
         authenticationManagerBuilder.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
         return authenticationManagerBuilder.build();

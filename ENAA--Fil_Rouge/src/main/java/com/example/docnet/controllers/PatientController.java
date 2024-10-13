@@ -2,7 +2,6 @@ package com.example.docnet.controllers;
 
 import com.example.docnet.models.Patient;
 import com.example.docnet.services.PatientService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,8 +11,11 @@ import java.util.List;
 @RequestMapping("/api/patient")
 public class PatientController {
 
-    @Autowired
-    private PatientService patientService;
+    private final PatientService patientService;
+
+    public PatientController(PatientService patientService) {
+        this.patientService = patientService;
+    }
 
     @GetMapping("/getAll")
     public List<Patient> showAllPatients() {

@@ -2,7 +2,6 @@ package com.example.docnet.controllers;
 
 import com.example.docnet.models.Notification;
 import com.example.docnet.services.MessageService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,8 +11,11 @@ import java.util.List;
 @RequestMapping("/notification/")
 public class MessageController {
 
-    @Autowired
-    private MessageService messageService;
+    private final MessageService messageService;
+
+    public MessageController(MessageService messageService) {
+        this.messageService = messageService;
+    }
 
     /**
      * Envoie une notification manuelle à un patient.

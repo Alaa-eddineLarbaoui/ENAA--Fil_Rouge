@@ -9,7 +9,6 @@ import com.example.docnet.models.Person;
 import com.example.docnet.repositories.PersoneRepository;
 import com.example.docnet.services.PersonneService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,15 +21,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/auth")
 public class AuthoController {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
-    @Autowired
-    private PersoneRepository personeRepository;
+    private final AuthenticationManager authenticationManager;
+    private final PersoneRepository personeRepository;
 
-    @Autowired
-    private PersonneService personneService;
+    private final PersonneService personneService;
 
-
+    public AuthoController(AuthenticationManager authenticationManager, PersoneRepository personeRepository, PersonneService personneService) {
+        this.authenticationManager = authenticationManager;
+        this.personeRepository = personeRepository;
+        this.personneService = personneService;
+    }
 
 
     @PostMapping("/login")
