@@ -3,6 +3,7 @@ package com.example.docnet.controllers;
 import com.example.docnet.config.JwtAuth;
 import com.example.docnet.dto.JwtDto;
 import com.example.docnet.dto.LoginPersonDto;
+import com.example.docnet.dto.Signupdoctor;
 import com.example.docnet.dto.SingUpDto;
 import com.example.docnet.enums.Erole;
 import com.example.docnet.models.Person;
@@ -51,6 +52,11 @@ public class AuthoController {
     public ResponseEntity<String> signup(@RequestBody SingUpDto singUpDto) throws JsonProcessingException {
         return ResponseEntity.ok(personneService.register(singUpDto));
     }
+    @PostMapping("/signupdoctor")
+    public ResponseEntity<String> signup(@RequestBody Signupdoctor singUpDto) throws JsonProcessingException {
+        return ResponseEntity.ok(personneService.registerDoctor(singUpDto));
+    }
+
 
 
 }

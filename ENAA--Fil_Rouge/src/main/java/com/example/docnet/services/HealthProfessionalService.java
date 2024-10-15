@@ -1,6 +1,7 @@
 package com.example.docnet.services;
 
 import com.example.docnet.enums.Speciality;
+import com.example.docnet.exceptions.HealthProfessionalNotFoundException;
 import com.example.docnet.models.HealthProfessional;
 import com.example.docnet.models.QHealthProfessional;
 import com.example.docnet.repositories.HealthProfessionalRepository;
@@ -39,8 +40,9 @@ public class HealthProfessionalService {
      */
     public HealthProfessional showHealthProfessionalById(Long id) {
         return healthProfessionalRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow(() -> new HealthProfessionalNotFoundException(id));
     }
+
 
     /**
      * Updates an existing health professional with new information.
@@ -49,7 +51,7 @@ public class HealthProfessionalService {
      * @return The updated health professional.
      */
     public HealthProfessional updateHealthProfessional(Long id, HealthProfessional updateProf) {
-        HealthProfessional healthProfessional = showHealthProfessionalById(id);  // Retrieves the health professional by ID
+        HealthProfessional healthProfessional = showHealthProfessionalById(id);
 
         // Update the fields of the existing health professional
         healthProfessional.setUsername(updateProf.getUsername());
@@ -61,16 +63,9 @@ public class HealthProfessionalService {
         healthProfessional.setSpecialty(updateProf.getSpecialty());
         healthProfessional.setRegistrationNumber(updateProf.getRegistrationNumber());
 
-        return healthProfessionalRepository.save(healthProfessional);  // Save the changes to the database
+        return healthProfessionalRepository.save(healthProfessional);
     }
 
-    /**
-     * Deletes a health professional from the database using their ID.
-     * @param id The ID of the health professional to delete.
-     */
-    public void deleteHealthProfessional(Long id) {
-        healthProfessionalRepository.deleteById(id);
-    }
 
 
 

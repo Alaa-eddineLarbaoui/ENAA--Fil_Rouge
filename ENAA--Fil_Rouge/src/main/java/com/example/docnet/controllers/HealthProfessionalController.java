@@ -38,10 +38,7 @@ public class HealthProfessionalController {
         return healthProfessionalService.updateHealthProfessional(id, updatedHealthProfessional);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public void deleteHealthProfessional(@PathVariable Long id) {
-        healthProfessionalService.deleteHealthProfessional(id);
-    }
+
 
 
     @GetMapping("/filter")

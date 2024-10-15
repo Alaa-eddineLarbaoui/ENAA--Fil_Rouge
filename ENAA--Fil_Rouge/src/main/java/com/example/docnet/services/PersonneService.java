@@ -1,5 +1,6 @@
 package com.example.docnet.services;
 
+import com.example.docnet.dto.Signupdoctor;
 import com.example.docnet.models.HealthProfessional;
 import com.example.docnet.models.Patient;
 import com.example.docnet.models.Person;
@@ -27,13 +28,12 @@ public class PersonneService {
         Person person = createUserByRole(request);
         personeRepository.save(person);
 
-        // Créer une réponse au format JSON
         Map<String, String> response = new HashMap<>();
         response.put("message", "person signup");
 
-        // Sérialiser le Map en une chaîne JSON
+
         ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.writeValueAsString(response); // Retourner la chaîne JSON
+        return objectMapper.writeValueAsString(response);
     }
     private Person createUserByRole(SingUpDto singUpDto) {
         String encodedPassword = passwordEncoder.encode(singUpDto.getPassword());
@@ -51,6 +51,37 @@ public class PersonneService {
         return person;
     }
 
+
+    public String registerDoctor(Signupdoctor request) throws JsonProcessingException {
+
+         Person person = createUserByRolee(request);
+
+         personeRepository.save(person);
+
+         Map<String, String> response = new HashMap<>();
+        response.put("message", "person signup");
+
+         ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.writeValueAsString(response);
+    }
+
+    private Person createUserByRolee(Signupdoctor signupdoctor) {
+         String encodedPassword = passwordEncoder.encode(signupdoctor.getPassword());
+
+         Person person = switch (signupdoctor.getRole()) {
+            case DOCTOR -> new HealthProfessional();
+            default -> new Patient();
+        };
+
+         person.setUsername(signupdoctor.getUsername());
+        person.setEmail(signupdoctor.getEmail());
+        person.setPassword(encodedPassword);
+        person.setRole(signupdoctor.getRole());
+
+        System.out.println(person.getRole() + " - Role assigned to the user.");
+
+        return person;
+    }
 
 
 

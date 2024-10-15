@@ -47,7 +47,7 @@ public class AppointmentController {
 
     @PreAuthorize("hasRole('PATIENT')")
     @PostMapping("/add/{patientId}&{docId}")
-    public AppointmentDto addAppointment(@RequestBody AppointmentDto appointment , @PathVariable("patientId") Long patId , @PathVariable("docId") Long docId) {
+    public Appointment addAppointment(@RequestBody Appointment appointment , @PathVariable("patientId") Long patId , @PathVariable("docId") Long docId) {
         return appointmentService.addAppointment(appointment,patId,docId);
     }
 

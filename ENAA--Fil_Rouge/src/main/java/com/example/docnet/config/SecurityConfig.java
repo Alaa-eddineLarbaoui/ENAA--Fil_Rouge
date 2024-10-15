@@ -46,12 +46,14 @@ public class SecurityConfig  {
                 .authorizeHttpRequests(expressionInterceptUrlRegistry ->
                                 expressionInterceptUrlRegistry
                                         .requestMatchers("/api/auth/signup").permitAll()
+                                        .requestMatchers("/api/auth/signupdoctor").permitAll()
                                         .requestMatchers("/api/auth/login").permitAll()
                                         .requestMatchers("/swagger-ui/**").permitAll()
                                         .requestMatchers("v3/api-docs/**").permitAll()
                                         .requestMatchers("/api/availabilities/**").permitAll()
                                         .requestMatchers("/api/availabilities/available-times").permitAll()
                                         .requestMatchers("/api/health-professionals/**").permitAll()
+                                        .requestMatchers("/notification/**").permitAll()
 
 
                                         .anyRequest().authenticated()

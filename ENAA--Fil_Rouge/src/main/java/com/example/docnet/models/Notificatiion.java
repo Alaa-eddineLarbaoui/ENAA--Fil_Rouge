@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Notification {
+public class Notificatiion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

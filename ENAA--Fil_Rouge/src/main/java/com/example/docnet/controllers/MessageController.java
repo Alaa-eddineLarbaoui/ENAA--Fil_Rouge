@@ -1,7 +1,8 @@
 package com.example.docnet.controllers;
 
-import com.example.docnet.models.Notification;
+import com.example.docnet.models.Notificatiion;
 import com.example.docnet.services.MessageService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,7 +33,7 @@ public class MessageController {
     }
     
     @GetMapping("getAll")
-    public List<Notification> findAllnotifByID(Long id ){
+    public List<Notificatiion> findAllnotifByID(Long id ){
         return messageService.findNotificationByPatientId(id);
     }
 }

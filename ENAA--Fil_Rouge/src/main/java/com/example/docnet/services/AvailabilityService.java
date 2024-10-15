@@ -2,6 +2,7 @@ package com.example.docnet.services;
 
 
 import com.example.docnet.dto.AvailabilityDto1;
+import com.example.docnet.exceptions.HealthProfessionalNotFoundException;
 import com.example.docnet.mapper.AvailabilityMapper1;
 import com.example.docnet.models.Appointment;
 import com.example.docnet.models.Availability;
@@ -32,8 +33,6 @@ public class AvailabilityService {
 
     @Autowired
     private AvailabilityRepository availabilityRepository;
-    @Autowired
-    private AvailabilityMapper1 availabilityMapper1;
 
 
     public List<AvailabilityDto1> getAvailableTimes(LocalDate date, Long professionalId) {
@@ -59,7 +58,8 @@ public class AvailabilityService {
 
 
     public Availability createAvailability(Availability availability, Long professionalId) {
-        HealthProfessional healthProfessional = professionalRepository.findById(professionalId).orElseThrow();
+        HealthProfessional healthProfessional = professionalRepository.findById(professionalId)
+                .orElseThrow(() -> new HealthProfessionalNotFoundException(professionalId));
         availability.setProfessional(healthProfessional);
         return availabilityRepository.save(availability);
     }

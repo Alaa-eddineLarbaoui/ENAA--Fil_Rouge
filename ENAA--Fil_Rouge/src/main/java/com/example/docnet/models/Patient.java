@@ -26,9 +26,7 @@ public class Patient extends Person {
 
     @OneToMany(mappedBy = "patient")
     @JsonIgnore
-    private Set<Notification> notifications;
+    private Set<Notificatiion> notifications;
 
-//    @ManyToOne
-//    @JoinColumn(name = "doctor_id")
-//    private HealthProfessional healthProfessional;
+
 }

@@ -47,9 +47,6 @@ public class HealthProfessional extends Person {
     private String formation;
 
 
-
-
-
     // Relationship with Notification
 //    @OneToMany(mappedBy = "healthProfessional")
 //    private List<Notification> notifications;
@@ -59,10 +56,7 @@ public class HealthProfessional extends Person {
     @JsonIgnore
     private List<Availability> availabilities;
 
-    // Relation OneToMany avec Patient
-//    @OneToMany(mappedBy = "healthProfessional")
-//    @JsonIgnore
-//    private List<Patient> patients;
+
 
 
 }

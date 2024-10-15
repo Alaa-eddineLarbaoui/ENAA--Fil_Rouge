@@ -1,7 +1,7 @@
 package com.example.docnet.services;
 
 import com.example.docnet.models.HealthProfessional;
-import com.example.docnet.models.Notification;
+import com.example.docnet.models.Notificatiion;
 import com.example.docnet.models.Patient;
 import com.example.docnet.repositories.AppointmentRepository;
 import com.example.docnet.repositories.HealthProfessionalRepository;
@@ -48,7 +48,7 @@ public class MessageService {
 
         envoyerEmail(patient.getEmail(), message, healthProfessional.getUsername());
 
-        Notification notification = new Notification();
+        Notificatiion notification = new Notificatiion();
         notification.setMessage(message);
         notification.setDateSend(LocalDateTime.now());
         notification.setSent(true);
@@ -63,14 +63,14 @@ public class MessageService {
         mailMessage.setFrom("doctNet@outlook.com");
         mailMessage.setTo(emailPatient);
         mailMessage.setSubject("Notification de rendez-vous");
-        mailMessage.setText(message);
+        mailMessage.setText("Hey I'am your doctor"+ " " + nomProfessional + ":" + message);
 
         mailSender.send(mailMessage);
     }
 
 
 
-    public List<Notification> findNotificationByPatientId(Long id ){
+    public List<Notificatiion> findNotificationByPatientId(Long id ){
         return notificationRepository.findByPatientId(id);
     }
 }

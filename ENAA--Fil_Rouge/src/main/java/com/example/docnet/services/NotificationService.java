@@ -37,7 +37,6 @@ public class NotificationService {
         LocalDate date1 = dans48Heures.toLocalDate();
 
         // Rechercher les rendez-vous dans les 48 prochaines heures et dont les notifications n'ont pas encore été envoyées
-        System.out.println("////////" + dans48Heures);
 
         List<Appointment> appointments = appointmentRepository
                 .findByDateAndTimeBeforeAndNotificationEnvoyeeFalse(date1, date2);

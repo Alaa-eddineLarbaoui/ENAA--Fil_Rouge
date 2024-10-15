@@ -3,6 +3,9 @@ package com.example.docnet.services;
 
 import com.example.docnet.dto.AppointmentDto;
 import com.example.docnet.enums.AppointmentStatus;
+import com.example.docnet.exceptions.AppointmentNotFoundException;
+import com.example.docnet.exceptions.HealthProfessionalNotFoundException;
+import com.example.docnet.exceptions.PatientNotFoundException;
 import com.example.docnet.mapper.AppointmentMapper;
 import com.example.docnet.models.Appointment;
 import com.example.docnet.models.HealthProfessional;
@@ -36,31 +39,24 @@ public class AppointmentService {
      * @param appointment The appointment to add.
      * @return The saved appointment.
      */
-//    public Appointment addAppointment(Appointment appointment , Long patId , Long docId) {
-//        Appointment appointment1=new Appointment();
-//        Patient patient = patientRepository.findById(patId).get();
-//        HealthProfessional doc = healthProfessionalRepository.findById(docId).get();
-//
-//        appointment1.setDate(appointment.getDate());
-//        appointment1.setTime(appointment.getTime());
-//        appointment1.setNote(appointment.getNote());
-//        appointment1.setAppointmentReason(appointment.getAppointmentReason());
-//        appointment1.setStatus(appointment.getStatus());
-//        appointment1.setPatient(patient);
-//        appointment1.setProfessional(doc);
-//
-//        return appointRepository.save(appointment1);
-//    }
+    public Appointment addAppointment(Appointment appointment , Long patId , Long docId) {
+        Appointment appointment1=new Appointment();
 
+        Patient patient = patientRepository.findById(patId)
+                .orElseThrow(() -> new PatientNotFoundException(patId));
 
-    public AppointmentDto addAppointment(AppointmentDto appointment , Long patId , Long docId) {
-        Appointment appointment1=appointmentMapper.toEntity(appointment);
-        AppointmentDto saveddata = appointmentMapper.toDto(appointRepository.save(appointment1));
+        HealthProfessional doc = healthProfessionalRepository.findById(docId)
+                .orElseThrow(() -> new HealthProfessionalNotFoundException(docId));
 
-        Patient patient = patientRepository.findById(patId).get();
-        HealthProfessional doc = healthProfessionalRepository.findById(docId).get();
+        appointment1.setDate(appointment.getDate());
+        appointment1.setTime(appointment.getTime());
+        appointment1.setNote(appointment.getNote());
+        appointment1.setAppointmentReason(appointment.getAppointmentReason());
+        appointment1.setStatus(appointment.getStatus());
+        appointment1.setPatient(patient);
+        appointment1.setProfessional(doc);
 
-        return saveddata;
+        return appointRepository.save(appointment1);
     }
 
 
@@ -86,7 +82,8 @@ public class AppointmentService {
      * @return The appointment corresponding to the provided ID.
      */
     public Appointment getAppointment(Long idAppoint) {
-        return appointRepository.findById(idAppoint).orElse(null);
+        return appointRepository.findById(idAppoint)
+                .orElseThrow(() -> new AppointmentNotFoundException(idAppoint));
     }
 
     /**
@@ -96,9 +93,8 @@ public class AppointmentService {
      * @return The updated appointment.
      */
     public Appointment updateAppointment(Appointment appointment, Long id) {
-        Appointment appointment1 = getAppointment(id);  // Retrieves the appointment by ID
+        Appointment appointment1 = getAppointment(id);
 
-        // Update the fields of the existing appointment
         appointment1.setTime(appointment.getTime());
         appointment1.setDate(appointment.getDate());
 
@@ -106,7 +102,7 @@ public class AppointmentService {
         appointment1.setAppointmentReason(appointment.getAppointmentReason());
         appointment1.setNote(appointment.getNote());
 
-        return appointRepository.save(appointment1);  // Save the changes to the database
+        return appointRepository.save(appointment1);
     }
 
     public List<Appointment> getAllByIdPatient(Long patientId) {

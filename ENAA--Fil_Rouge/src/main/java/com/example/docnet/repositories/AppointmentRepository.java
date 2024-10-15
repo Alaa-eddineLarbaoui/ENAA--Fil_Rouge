@@ -1,5 +1,6 @@
 package com.example.docnet.repositories;
 
+import com.example.docnet.dto.AppointmentDto;
 import com.example.docnet.models.Appointment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
