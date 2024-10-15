@@ -30,8 +30,6 @@ public abstract class Person implements UserDetails {
     private String email;
 
     @Column(length = 100, nullable = false)
-
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Column(length = 15, unique = true)

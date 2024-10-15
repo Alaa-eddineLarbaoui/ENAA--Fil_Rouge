@@ -19,6 +19,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     List<Appointment> findByDateAndTimeBeforeAndNotificationEnvoyeeFalse(@Param("dans48heurs") LocalDate date1, @Param("maintenant") LocalDate date2);
 
 
+
     List<Appointment> findByDateAndProfessionalId(LocalDate date, Long professionalId);
 
     List<Appointment> findByPatient_Id(Long patientId);
