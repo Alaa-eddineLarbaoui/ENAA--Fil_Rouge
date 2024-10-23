@@ -14,7 +14,6 @@ public class NotificationController {
 
     private final NotificationService notificationService;
 
-    // Constructeur injectant le service NotificationService.
     public NotificationController(NotificationService notificationService) {
         this.notificationService = notificationService;
     }
