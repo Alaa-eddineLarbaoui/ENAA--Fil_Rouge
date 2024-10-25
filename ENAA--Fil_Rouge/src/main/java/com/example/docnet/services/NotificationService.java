@@ -54,18 +54,18 @@ public class NotificationService {
 
 
     private void envoyerEmail(String emailPatient, String nomPatient, LocalTime time, LocalDate date, String nomProfessional) {
-        // Combine la date et l'heure en un seul LocalDateTime
+        // Combine date and time into a single LocalDateTime
         LocalDateTime dateTime = LocalDateTime.of(date, time);
 
-        // Format de la date en anglais
+        // Date format in English
         DateTimeFormatter formatterEnglish = DateTimeFormatter.ofPattern("EEEE, MMMM dd, yyyy HH:mm", Locale.ENGLISH);
         String formattedDateEnglish = dateTime.format(formatterEnglish);
 
-        // Format de la date en arabe
+        // Date format in Arabic
         DateTimeFormatter formatterArabic = DateTimeFormatter.ofPattern("EEEE, MMMM dd, yyyy HH:mm", new Locale("ar"));
         String formattedDateArabic = dateTime.format(formatterArabic);
 
-        // Message avec les deux versions
+        // Message with both language versions
         String message = "Hello " + nomPatient + ",\n\n" +
                 "This is a reminder for your appointment scheduled on " + formattedDateEnglish + ".\n" +
                 "Your appointment is with Dr. " + nomProfessional + ".\n\n" +
@@ -75,14 +75,14 @@ public class NotificationService {
                 "Thank you for your attention.\n" +
                 "شكرا لاهتمامك.";
 
-        // Configuration de l'email
+        // Email configuration
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setFrom("doctNet@outlook.com");
         mailMessage.setTo(emailPatient);
         mailMessage.setSubject("Appointment Reminder / تذكير بالموعد");
         mailMessage.setText(message);
 
-        // Envoi de l'email
+        // Sending the email
         mailSender.send(mailMessage);
     }
 }
