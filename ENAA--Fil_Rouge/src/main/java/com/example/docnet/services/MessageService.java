@@ -1,5 +1,7 @@
 package com.example.docnet.services;
 
+import com.example.docnet.exceptions.HealthProfessionalNotFoundException;
+import com.example.docnet.exceptions.PatientNotFoundException;
 import com.example.docnet.models.HealthProfessional;
 import com.example.docnet.models.Notificatiion;
 import com.example.docnet.models.Patient;
@@ -43,8 +45,12 @@ public class MessageService {
 
     public void envoyerNotificationManuelle(Long patientId, Long healthProfessionalId, String message) {
 
-        Patient patient = patientRepository.findById(patientId).orElseThrow();
-        HealthProfessional healthProfessional = healthProfessionalRepository.findById(healthProfessionalId).orElseThrow();
+        Patient patient = patientRepository.findById(patientId)
+                .orElseThrow(() -> new PatientNotFoundException(patientId));
+
+        HealthProfessional healthProfessional = healthProfessionalRepository.findById(healthProfessionalId)
+                .orElseThrow(() -> new HealthProfessionalNotFoundException(healthProfessionalId));
+
 
         envoyerEmail(patient.getEmail(), message, healthProfessional.getUsername());
 
