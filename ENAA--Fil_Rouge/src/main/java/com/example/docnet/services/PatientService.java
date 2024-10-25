@@ -1,5 +1,6 @@
 package com.example.docnet.services;
 
+import com.example.docnet.exceptions.PatientNotFoundException;
 import com.example.docnet.models.Patient;
 import com.example.docnet.repositories.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +40,9 @@ public class PatientService {
      */
     public Patient showPatientById(Long id) {
         return patientRepository.findById(id)
-                .orElseThrow();  // Lève une exception si le patient n'est pas trouvé
+                .orElseThrow(() -> new PatientNotFoundException(id));
     }
+
 
 
     /**
