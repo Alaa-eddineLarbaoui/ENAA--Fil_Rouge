@@ -109,12 +109,24 @@ public class AppointmentService {
         return appointRepository.save(appointment1);
     }
 
+    /**
+     * Retrieves all appointments for a specific patient by their ID.
+     * @param patientId The ID of the patient whose appointments are to be retrieved.
+     * @return A list of appointments associated with the specified patient.
+     */
     public List<Appointment> getAllByIdPatient(Long patientId) {
         return appointRepository.findByPatient_Id(patientId);
     }
+
+    /**
+     * Retrieves all appointments for a specific doctor by their ID.
+     * @param doctorId The ID of the doctor whose appointments are to be retrieved.
+     * @return A list of appointments associated with the specified doctor.
+     */
     public List<Appointment> getAllByIdDoctor(Long doctorId) {
         return appointRepository.findByProfessional_Id(doctorId);
     }
+
 
 
 
