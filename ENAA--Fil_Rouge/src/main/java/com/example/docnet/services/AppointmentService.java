@@ -25,15 +25,19 @@ import java.util.stream.Collectors;
 @Service
 public class AppointmentService {
 
-    @Autowired
-    private AppointmentRepository appointRepository;
-    @Autowired
-    private PatientRepository patientRepository;
-    @Autowired
-    private HealthProfessionalRepository healthProfessionalRepository ;
+    private final AppointmentRepository appointRepository;
+    private final PatientRepository patientRepository;
+    private final HealthProfessionalRepository healthProfessionalRepository ;
 
-    @Autowired
-    private AppointmentMapper appointmentMapper;
+    private final AppointmentMapper appointmentMapper;
+
+    public AppointmentService(AppointmentRepository appointRepository, PatientRepository patientRepository, HealthProfessionalRepository healthProfessionalRepository, AppointmentMapper appointmentMapper) {
+        this.appointRepository = appointRepository;
+        this.patientRepository = patientRepository;
+        this.healthProfessionalRepository = healthProfessionalRepository;
+        this.appointmentMapper = appointmentMapper;
+    }
+
     /**
      * Adds a new appointment to the database.
      * @param appointment The appointment to add.
