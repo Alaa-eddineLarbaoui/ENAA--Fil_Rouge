@@ -28,20 +28,24 @@ import java.util.List;
 public class MessageService {
 
 
-    @Autowired
     private NotificationRepository notificationRepository;
 
-    @Autowired
     private JavaMailSender mailSender;
 
-    @Autowired
     private AppointmentRepository appointmentRepository;
 
-    @Autowired
     private PatientRepository patientRepository;
 
-    @Autowired
     private HealthProfessionalRepository healthProfessionalRepository;
+
+    @Autowired
+    public MessageService(NotificationRepository notificationRepository, JavaMailSender mailSender, AppointmentRepository appointmentRepository, PatientRepository patientRepository, HealthProfessionalRepository healthProfessionalRepository) {
+        this.notificationRepository = notificationRepository;
+        this.mailSender = mailSender;
+        this.appointmentRepository = appointmentRepository;
+        this.patientRepository = patientRepository;
+        this.healthProfessionalRepository = healthProfessionalRepository;
+    }
 
     public void envoyerNotificationManuelle(Long patientId, Long healthProfessionalId, String message) {
 

@@ -13,8 +13,11 @@ import java.util.List;
 @Service
 public class HealthProfessionalService {
 
-    @Autowired
-    private HealthProfessionalRepository healthProfessionalRepository;
+    private final HealthProfessionalRepository healthProfessionalRepository;
+
+    public HealthProfessionalService(HealthProfessionalRepository healthProfessionalRepository) {
+        this.healthProfessionalRepository = healthProfessionalRepository;
+    }
 
     /**
      * Registers a new health professional in the database.
