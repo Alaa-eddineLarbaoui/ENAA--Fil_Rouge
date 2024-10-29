@@ -36,15 +36,15 @@ public class MessageService {
 
     private PatientRepository patientRepository;
 
+    @Autowired
     private HealthProfessionalRepository healthProfessionalRepository;
 
     @Autowired
-    public MessageService(NotificationRepository notificationRepository, JavaMailSender mailSender, AppointmentRepository appointmentRepository, PatientRepository patientRepository, HealthProfessionalRepository healthProfessionalRepository) {
+    public MessageService(NotificationRepository notificationRepository, JavaMailSender mailSender, AppointmentRepository appointmentRepository, PatientRepository patientRepository) {
         this.notificationRepository = notificationRepository;
         this.mailSender = mailSender;
         this.appointmentRepository = appointmentRepository;
         this.patientRepository = patientRepository;
-        this.healthProfessionalRepository = healthProfessionalRepository;
     }
 
     public void envoyerNotificationManuelle(Long patientId, Long healthProfessionalId, String message) {

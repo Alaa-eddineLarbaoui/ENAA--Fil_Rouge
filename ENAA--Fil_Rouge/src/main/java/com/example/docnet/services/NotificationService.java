@@ -20,11 +20,15 @@ import java.util.Locale;
 @AllArgsConstructor
 public class NotificationService {
 
-    @Autowired
     private JavaMailSender mailSender;
 
+    private final AppointmentRepository appointmentRepository;
+
     @Autowired
-    private AppointmentRepository appointmentRepository;
+    public NotificationService(JavaMailSender mailSender, AppointmentRepository appointmentRepository) {
+        this.mailSender = mailSender;
+        this.appointmentRepository = appointmentRepository;
+    }
 
 
     @Scheduled(fixedDelay = 1000)
