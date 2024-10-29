@@ -22,17 +22,15 @@ import java.util.stream.Collectors;
 @Service
 public class AvailabilityService {
 
-    @Autowired
-    private AppointmentRepository appointmentRepository;
+    private final AppointmentRepository appointmentRepository;
+    private final HealthProfessionalRepository professionalRepository;
+    private final AvailabilityRepository availabilityRepository;
 
-    @Autowired
-    private PatientRepository patientRepository;
-
-    @Autowired
-    private HealthProfessionalRepository professionalRepository;
-
-    @Autowired
-    private AvailabilityRepository availabilityRepository;
+    public AvailabilityService(AppointmentRepository appointmentRepository, PatientRepository patientRepository, HealthProfessionalRepository professionalRepository, AvailabilityRepository availabilityRepository) {
+        this.appointmentRepository = appointmentRepository;
+        this.professionalRepository = professionalRepository;
+        this.availabilityRepository = availabilityRepository;
+    }
 
 
     public List<AvailabilityDto1> getAvailableTimes(LocalDate date, Long professionalId) {
