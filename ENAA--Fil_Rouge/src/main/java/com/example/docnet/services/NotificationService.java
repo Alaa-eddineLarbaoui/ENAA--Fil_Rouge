@@ -27,16 +27,16 @@ public class NotificationService {
     private AppointmentRepository appointmentRepository;
 
 
-    @Scheduled(fixedDelay = 1000)
+    @Scheduled(fixedDelay = 1000000000)
     public void envoyerNotifications() {
         LocalDateTime maintenant = LocalDateTime.now();
         LocalDateTime dans48Heures = maintenant.plusHours(48);
 
-        // Extraction de la date et de l'heure
+        // Extracting the date and time
         LocalDate date2 = maintenant.toLocalDate();
         LocalDate date1 = dans48Heures.toLocalDate();
 
-        // Rechercher les rendez-vous dans les 48 prochaines heures et dont les notifications n'ont pas encore été envoyées
+        // Search for appointments in the next 48 hours for which notifications have not yet been sent
 
         List<Appointment> appointments = appointmentRepository
                 .findByDateAndTimeBeforeAndNotificationEnvoyeeFalse(date1, date2);
